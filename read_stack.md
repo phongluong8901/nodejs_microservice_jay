@@ -1,4 +1,19 @@
 # --- lib
+express: Framework web tối giản và linh hoạt cho Node.js, dùng để xây dựng các RESTful API, quản lý routing, middleware và xử lý HTTP request/response cho microservice.
+
+nodemon (devDependencies): Công cụ tự động khởi động lại ứng dụng Node.js khi phát hiện có tệp mã nguồn thay đổi, giúp tiết kiệm thời gian trong quá trình phát triển (development).
+
+typescript (devDependencies): Ngôn ngữ lập trình mở rộng của JavaScript mang lại tính năng kiểm tra kiểu tĩnh (static typing) và các tính năng hướng đối tượng hiện đại trước khi biên dịch ra JavaScript.
+
+ts-node (devDependencies): Trình thực thi trực tiếp mã TypeScript trên Node.js mà không cần bước biên dịch thủ công ra JavaScript (thường dùng kết hợp với nodemon khi dev).
+
+jest (devDependencies): Framework kiểm thử JavaScript/TypeScript phổ biến, mạnh mẽ và hỗ trợ sẵn tính năng tạo mock, snapshot testing, và đo lường độ bao phủ mã nguồn (code coverage).
+
+supertest (devDependencies): Thư viện chuyên dụng để kiểm thử các HTTP server (như Express app), cho phép gửi các request giả lập (GET, POST, PUT, DELETE) và kiểm tra kết quả trả về.
+
+@faker-js/faker (devDependencies): Thư viện tạo dữ liệu giả ngẫu nhiên (như tên, email, địa chỉ, số điện thoại) cực kỳ hữu ích để phục vụ cho việc viết test dữ liệu mẫu hoặc seed database.
+
+osie (devDependencies): Thư viện hỗ trợ mô hình Factory Pattern cho JavaScript và TypeScript, chuyên dùng trong việc tạo dữ liệu mẫu (mock data) cho các bài kiểm thử (testing). Thay vì phải viết thủ công từng đối tượng dữ liệu hoặc lặp lại cấu trúc phức tạp ở mỗi test case, rosie cho phép định nghĩa sẵn các khuôn mẫu (blueprints) cho từng thực thể (như Product, User, Order), sau đó dễ dàng sinh ra dữ liệu ngẫu nhiên hoặc ghi đè các thuộc tính cụ thể một cách cực kỳ nhanh chóng và gọn gàng.
 
 # --- stack
 1. Jest

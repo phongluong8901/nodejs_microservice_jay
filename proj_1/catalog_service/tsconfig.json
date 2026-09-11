@@ -18,5 +18,9 @@
     "noUncheckedSideEffectImports": true, // Báo lỗi nếu import file có hiệu ứng phụ nhưng đường dẫn không tồn tại
     "moduleDetection": "force", // Buộc coi mọi file không có import/export cũng là một module độc lập
     "skipLibCheck": true // Bỏ qua kiểm tra kiểu bên trong thư mục node_modules/@types để tăng tốc build
-  }
+  },
+  "exclude": [
+    "jest.config.ts",
+    "dist"
+  ]
 }
