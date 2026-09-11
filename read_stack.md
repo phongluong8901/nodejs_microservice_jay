@@ -1,6 +1,18 @@
 # --- lib
 
 # --- stack
+1. Jest
+Đúng vậy, Jest là một thư viện kiểm thử (testing framework) mã nguồn mở rất phổ biến và mạnh mẽ dành cho hệ sinh thái JavaScript và Node.js, được phát triển và duy trì bởi Meta (Facebook).
+
+Unit Test: Kiểm thử từng hàm, từng class riêng lẻ (như kiểm tra logic tính toán trong CatalogService hoặc Product).
+
+Integration Test: Kiểm thử sự phối hợp giữa nhiều thành phần với nhau (như test kết nối Repository với Database hoặc test các HTTP Route của Express).
+
+Zero-config: Hầu như không cần cấu hình phức tạp, có thể chạy ngay với các dự án JavaScript tiêu chuẩn.
+
+Tích hợp sẵn (All-in-one): Bao gồm sẵn công cụ chạy test (test runner), hàm kiểm tra điều kiện (assertions như expect().toBe()), và tính năng đo độ bao phủ mã nguồn (code coverage) mà không cần cài thêm thư viện phụ trợ.
+
+Mocking mạnh mẽ: Hỗ trợ giả lập (mock) các hàm, module, hoặc API dễ dàng, rất thích hợp khi cần test các service phụ thuộc vào database bên ngoài.
 
 # --- more, logic
 1. 

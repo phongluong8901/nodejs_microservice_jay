@@ -23,6 +23,9 @@ npm init --y
 
 
 --- install
+- cd catalog_service
+yarn add jest ts-jest @types/jest -D
+yarn add supertest @types/supertest -D
 
 
 
