@@ -80,8 +80,7 @@ router.get(
   }
 )
 
-router.delete(
-  "/products/:id",
+router.delete("/products/:id",
   async (req: Request, res: Response, next: NextFunction) => {
     const id = parseInt(String(req.params.id)) || 0;
     try {

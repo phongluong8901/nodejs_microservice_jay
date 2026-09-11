@@ -6,7 +6,7 @@ import { CatalogService } from "../catalog.service.js";
 import {faker, fakerEN_CA} from '@faker-js/faker'
 import type { Product } from "../../models/product.models.js";
 import {Factory} from 'rosie'
-import { productFactory } from "../../utils/fixfuture/index.js";
+import { ProductFactory } from "../../utils/fixfuture/index.js";
 
 // test
 describe("catalogService", () => {
@@ -131,7 +131,7 @@ describe("catalogService", () => {
         test("should get products by offset and limit", async () => {
         const service = new CatalogService(repository);
         const randomLimit = faker.number.int({ min: 10, max: 50 });
-        const products = productFactory.buildList(randomLimit);
+        const products = ProductFactory.buildList(randomLimit);
         jest
             .spyOn(repository, "find")
             .mockImplementationOnce(() => Promise.resolve(products));
@@ -159,7 +159,7 @@ describe("catalogService", () => {
     describe("getProduct", () => {
         test("should get product by id", async () => {
         const service = new CatalogService(repository);
-        const product = productFactory.build();
+        const product = ProductFactory.build();
         jest
             .spyOn(repository, "findOne")
             .mockImplementationOnce(() => Promise.resolve(product));
@@ -172,7 +172,7 @@ describe("catalogService", () => {
     describe("deleteProduct", () => {
         test("should delete product by id", async () => {
         const service = new CatalogService(repository);
-        const product = productFactory.build();
+        const product = ProductFactory.build();
         jest
             .spyOn(repository, "delete")
             .mockImplementationOnce(() => Promise.resolve(product));
