@@ -6,6 +6,7 @@ import { CatalogService } from "../catalog.service.js";
 import {faker, fakerEN_CA} from '@faker-js/faker'
 import type { Product } from "../../models/product.models.js";
 import {Factory} from 'rosie'
+import { productFactory } from "../../utils/fixfuture/index.js";
 
 // test
 describe("catalogService", () => {
@@ -15,12 +16,7 @@ describe("catalogService", () => {
     });
 });
 
-const productFactory  = new Factory<Product>()
-  .attr("id", faker.number.int({ min: 1, max: 1000 }))
-  .attr("name", faker.commerce.productName())
-  .attr("description", faker.commerce.productDescription())
-  .attr("stock", faker.number.int({ min: 10, max: 100 }))
-  .attr("price", +faker.commerce.price());
+
 
 // Hàm tiện ích (helper) dùng để sinh ra dữ liệu sản phẩm giả ngẫu nhiên bằng Faker
 const mockProduct = (rest: any) => {
@@ -28,7 +24,6 @@ const mockProduct = (rest: any) => {
         name: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
         stock: faker.number.int({min: 10, max: 100}),
-        price: faker.commerce.price(),
         ...rest,    // Cho phép ghi đè hoặc bổ sung các trường dữ liệu tùy chỉnh truyền vào
     };
 }

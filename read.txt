@@ -39,6 +39,7 @@ yarn create jest
 -
 yarn add @faker-js/faker --dev
 yarn add rosie @types/rosie -D
+yarn add class-transformer class-validator
 
 
 -- cd order_service
