@@ -29,6 +29,19 @@ Tích hợp sẵn (All-in-one): Bao gồm sẵn công cụ chạy test (test run
 
 Mocking mạnh mẽ: Hỗ trợ giả lập (mock) các hàm, module, hoặc API dễ dàng, rất thích hợp khi cần test các service phụ thuộc vào database bên ngoài.
 
+2. Clean Architecture
+Clean Architecture trong Node.js TypeScript microservice là mô hình phân tầng mã nguồn nhằm tách biệt hoàn toàn logic nghiệp vụ cốt lõi khỏi các công nghệ bên ngoài như Web Framework (Express, Fastify), Database (MongoDB, PostgreSQL) hay các thư viện bên thứ ba.
+
+Entities (Domain): Chứa các đối tượng nghiệp vụ cốt lõi và quy tắc dữ liệu thuần túy bằng TypeScript, hoàn toàn độc lập với database hay các thư viện ngoài.
+
+Use Cases (Services): Nơi chứa các business logic cụ thể của ứng dụng (ví dụ: CreateProduct, GetProduct), điều phối dữ liệu và gọi các interface trung gian.
+
+Interface Adapters (Controllers / Routers / Repositories): Chuyển đổi dữ liệu giữa bên ngoài và Use Cases. Ví dụ: nhận req.body từ Express, validate qua DTO, sau đó gọi service.
+
+Frameworks & Drivers: Tầng ngoài cùng bao gồm Express server, ORM (Prisma, Mongoose, TypeORM), cấu hình kết nối mạng và các thư viện hạ tầng.
+
+
+
 # --- more, logic
 1. 
 Nodejs microservices using
@@ -87,3 +100,16 @@ Express App - Post/products - Service - Repository
 Service - Mock
 
 Super test - Express App
+
+-
+Independent of Frameworks
+testable
+independent of UI
+Indepedent of Database
+Independent of any external package or entity
+
+- Clean aRchiteuture
+Entities
+useCase
+Controllers, Gateways, presentsers
+Web, UI, external interfacem DB, Devices

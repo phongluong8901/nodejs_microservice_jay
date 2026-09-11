@@ -1,0 +1,13 @@
+--- source
+https://github.com/codergogoi/node.js-clean-architecture
+
+--- setup
+git clone https://github.com/codergogoi/node.js-clean-architecture.git
+git checkout f39419793648a486508478164ef36fd7d9625778
+
+--- install
+yarn add -D nodemon
+
+--- run
+
+
