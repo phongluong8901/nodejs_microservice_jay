@@ -17,6 +17,12 @@
     "isolatedModules": true, // Đảm bảo mỗi file tự chứa đủ thông tin để biên dịch độc lập (cần cho tsx/esbuild)
     "noUncheckedSideEffectImports": true, // Báo lỗi nếu import file có hiệu ứng phụ nhưng đường dẫn không tồn tại
     "moduleDetection": "force", // Buộc coi mọi file không có import/export cũng là một module độc lập
-    "skipLibCheck": true // Bỏ qua kiểm tra kiểu bên trong thư mục node_modules/@types để tăng tốc build
-  }
+    "skipLibCheck": true, // Bỏ qua kiểm tra kiểu bên trong thư mục node_modules/@types để tăng tốc build
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "exclude": [
+    "jest.config.ts",
+    "dist"
+  ]
 }
