@@ -15,3 +15,14 @@ export class CreateProductRequest {                                     // Khai 
     @IsNumber()                                                         // Ràng buộc: trường 'stock' bắt buộc phải là kiểu số (number)
     stock: number;                                                      // Khai báo thuộc tính stock kiểu number
 }                                                                       // Kết thúc class
+
+export class UpdateProductRequest {
+  name?: string;
+
+  description?: string;
+
+  @Min(1)
+  price?: number;
+
+  stock?: number;
+}

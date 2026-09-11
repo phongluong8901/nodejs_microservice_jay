@@ -28,3 +28,8 @@ logs/
 *.log
 tmp/
 temp/
+
+node_modules
+dist
+.DS_Store
+coverage
