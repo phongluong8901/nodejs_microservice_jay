@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "nodenext", // Bật chuẩn module ESM hiện đại của Node.js, khớp với "type": "module" trong package.json
+    "rootDir": "./src", // Thư mục chứa mã nguồn TypeScript (.ts) đầu vào
+    "outDir": "./dist", // Thư mục chứa mã JavaScript sau khi biên dịch
+    "target": "esnext", // Phiên bản JavaScript đích mới nhất cho mã nguồn sau biên dịch
+    "types": [], // Vô hiệu hóa tự động nạp các gói @types toàn cục
+    "sourceMap": true, // Tạo file .js.map để hỗ trợ gỡ lỗi ngược về file .ts gốc
+    "declaration": true, // Tự động tạo file định nghĩa kiểu .d.ts cho các module
+    "declarationMap": true, // Tạo map cho file .d.ts để trỏ thẳng tới file .ts khi bấm "Go to Definition"
+    "noUncheckedIndexedAccess": true, // Bắt buộc kiểm tra undefined khi truy xuất phần tử mảng hoặc object qua index
+    "exactOptionalPropertyTypes": true, // Không cho phép gán tường minh giá trị undefined vào thuộc tính tùy chọn
+    "strictPropertyInitialization": false, // Tắt bắt buộc khởi tạo giá trị ngay cho các thuộc tính bên trong class
+    "strict": true, // Bật toàn bộ các cờ kiểm tra kiểu dữ liệu nghiêm ngặt của TypeScript
+    "jsx": "react-jsx", // Cấu hình biên dịch cú pháp JSX theo kiểu mới của React 17+
+    "verbatimModuleSyntax": true, // Giữ nguyên cú pháp import/export và phân biệt rõ ràng giữa kiểu dữ liệu (type) và giá trị
+    "isolatedModules": true, // Đảm bảo mỗi file tự chứa đủ thông tin để biên dịch độc lập (cần cho tsx/esbuild)
+    "noUncheckedSideEffectImports": true, // Báo lỗi nếu import file có hiệu ứng phụ nhưng đường dẫn không tồn tại
+    "moduleDetection": "force", // Buộc coi mọi file không có import/export cũng là một module độc lập
+    "skipLibCheck": true // Bỏ qua kiểm tra kiểu bên trong thư mục node_modules/@types để tăng tốc build
+  }
+}

@@ -1,0 +1,40 @@
+--- source
+https://github.com/codergogoi/kafka_elastic_search_ms
+
+--- setup
+- setup lai cho tsconfig
+yarn tsc -p .
+yarn install
+
+cd proj_1
+mkdir catalog_service order_service
+
+- cd catalog_service
+npm init --y
+yarn add express && yarn add nodemon -D
+yarn add typescript ts-node @types/node --save-dev
+yarn tsc --init
+
+yarn add @types/express --dev
+
+- cd order_service
+npm init --y
+
+
+
+--- install
+
+
+
+--- run
+- cd catalog_service
+yarn dev
+yarn build
+
+
+--- migrate
+
+--- docker
+
+--- deploy
+
