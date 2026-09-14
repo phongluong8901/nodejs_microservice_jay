@@ -62,7 +62,10 @@ docker-compose up -d
 
 --- migrate Prisma cho DB
 cd proj_1/catalog_service
+- bien dich ra .json va .d.ts
 npx prisma contract emit
+- day vao db
+npx prisma db update 
 
 --- docker
 
