@@ -9,6 +9,11 @@ yarn install
 cd proj_1
 mkdir catalog_service order_service
 
+cd order_service
+cd src
+mkdir config, db, repository, routes, service, types, utils, models
+touch .env
+
 - cd catalog_service
 npm init --y
 yarn add express && yarn add nodemon -D
@@ -22,7 +27,7 @@ npm init --y
 yarn add express express-rate-limiter dotenv
 yarn add nodemon typescript ts-node jest ts-jest @types/express @types/node -D --save
 yarn tsc --init
-
+yarn add -D tsx
 
 --- install
 -- cd catalog_service
@@ -45,8 +50,20 @@ yarn add class-transformer class-validator
 
 npx prisma orm init --yes --target postgres --authoring psl
 
-
 -- cd order_service
+yarn add cors; yarn add @types/cors -D
+yarn add jest ts-jest @types/jest -D
+yarn add supertest @types/supertest -D
+
+- run
+yarn create jest
+
+✔ Would you like to use Typescript for the configuration file? … yes
+✔ Choose the test environment that will be used for testing › node
+✔ Do you want Jest to add coverage reports? … yes
+✔ Which provider should be used to instrument code for coverage? › v8
+✔ Automatically clear mock calls, instances, contexts and results before every test? … yes
+
 
 --- run
 - run catalog service
@@ -55,6 +72,7 @@ yarn dev
 yarn build
 
 - run order service
+yarn dev
 
 - run postgresql
 -> voi dung wsl -> check host: hostname -I -> 172.26.88.47

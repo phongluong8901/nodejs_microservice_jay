@@ -4,8 +4,9 @@
     "outDir": "./dist", // Thư mục chứa mã JavaScript sau khi biên dịch
     "target": "esnext", // Phiên bản JavaScript đích mới nhất cho mã nguồn sau biên dịch
     "types": [
-      "node"
-    ], // Nạp tường minh các gói kiểu dữ liệu toàn cục của Node.js (như process, Buffer)
+      "node",
+      "jest"
+    ], // Nạp tường minh các gói kiểu dữ liệu toàn cục của Node.js và Jest
     "sourceMap": true, // Tạo file .js.map để hỗ trợ gỡ lỗi ngược về file .ts gốc
     "declaration": true, // Tự động tạo file định nghĩa kiểu .d.ts cho các module
     "declarationMap": true, // Tạo map cho file .d.ts để trỏ thẳng tới file .ts khi bấm "Go to Definition"

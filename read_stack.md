@@ -142,3 +142,7 @@ at any time, the databse can be changed based on bussness reuiqement
 not caring about manual satization to protect to data. ORM will handle most of them
 get ad vantages of type-safety object oreibted programing
 automic quey genearttion and object relation mapping
+
+---
+User - product catalog - product/smat phone - (add to cart) - cart - cart items
+cart - collect payment - order - order items
