@@ -8,6 +8,8 @@ git checkout f39419793648a486508478164ef36fd7d9625778
 --- install
 yarn add -D nodemon
 
+yarn add reflect-metadata inversify
+
 --- run
 
 

@@ -1,0 +1,3 @@
+export interface IMessageBroker {                  // Khai báo và xuất interface IMessageBroker (khuôn mẫu cho dịch vụ truyền tải thông điệp/message queue)
+  NotifyToPromotionService(product: unknown): Promise<any>; // Khai báo phương thức bất đồng bộ thông báo cho dịch vụ khuyến mãi, nhận dữ liệu sản phẩm bất kỳ và trả về Promise bất định kiểu
+}                                               // Kết thúc interface IMessageBroker

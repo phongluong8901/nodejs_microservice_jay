@@ -3,7 +3,7 @@ import {
   CreateProduct,
   GetProducts,
   UpdateProductStock,
-} from "../controllers/productController";
+} from "../controllers/xProductController";
 
 const router = express.Router();
 
