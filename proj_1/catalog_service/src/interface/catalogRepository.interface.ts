@@ -5,7 +5,7 @@ export interface ICatalogRepository {
     create(data: Product): Promise<Product>; // Phương thức tạo sản phẩm mới, nhận vào object Product và trả về Promise chứa Product đã tạo
     update(data: Product): Promise<Product>;
     delete(id: any): Promise<Product>;
-    find(): Promise<Product[]>  // Phương thức lấy danh sách toàn bộ sản phẩm, trả về Promise chứa mảng Product
+    find(limit: number, offset: number): Promise<Product[]>  // Phương thức lấy danh sách toàn bộ sản phẩm, trả về Promise chứa mảng Product
     findOne(id: number): Promise<Product>   // Phương thức tìm một sản phẩm theo ID kiểu số, trả về Promise chứa Product tương ứng
 }
 

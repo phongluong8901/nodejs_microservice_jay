@@ -11,23 +11,37 @@ export class CatalogService {
     }
 
     // Phương thức nghiệp vụ xử lý logic tạo mới sản phẩm từ dữ liệu đầu vào (input)
-    createProduct(input: any) {
-
+    async createProduct(input: any) {
+        const data = await this._repository.create(input);
+        if(!data.id) {
+            throw new Error("unable to create product");
+        }
+        return data;
     }
 
-    updateProduct(input: any) {
-
+    async updateProduct(input: any) {
+        const data = await this._repository.update(input);
+        //emit event to update record in elastic search
+        if (!data.id) {
+            throw new Error("unable to update product");
+        }
+        return data;
     }
 
-    getProducts(limit: number, offset: number) {
-
+    //instead of this we will get product from Elastic search
+    async getProducts(limit: number, offset: number) {
+        const products = await this._repository.find(limit, offset)
+        return products
     }
 
-    getProduct(id: number) {
-        
+    async getProduct(id: number) {
+        const product = await this._repository.findOne(id);
+        return product;
     }
 
-    deleteProduct(id: number) {
-
+    async deleteProduct(id: number) {
+        const response = await this._repository.delete(id);
+        // delete record from Elastic search
+        return response;
     }
 }

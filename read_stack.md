@@ -1,6 +1,67 @@
 # --- lib
+express: Framework web tối giản và linh hoạt cho Node.js, dùng để xây dựng các RESTful API, quản lý routing, middleware và xử lý HTTP request/response cho microservice.
+
+nodemon (devDependencies): Công cụ tự động khởi động lại ứng dụng Node.js khi phát hiện có tệp mã nguồn thay đổi, giúp tiết kiệm thời gian trong quá trình phát triển (development).
+
+typescript (devDependencies): Ngôn ngữ lập trình mở rộng của JavaScript mang lại tính năng kiểm tra kiểu tĩnh (static typing) và các tính năng hướng đối tượng hiện đại trước khi biên dịch ra JavaScript.
+
+ts-node (devDependencies): Trình thực thi trực tiếp mã TypeScript trên Node.js mà không cần bước biên dịch thủ công ra JavaScript (thường dùng kết hợp với nodemon khi dev).
+
+jest (devDependencies): Framework kiểm thử JavaScript/TypeScript phổ biến, mạnh mẽ và hỗ trợ sẵn tính năng tạo mock, snapshot testing, và đo lường độ bao phủ mã nguồn (code coverage).
+
+supertest (devDependencies): Thư viện chuyên dụng để kiểm thử các HTTP server (như Express app), cho phép gửi các request giả lập (GET, POST, PUT, DELETE) và kiểm tra kết quả trả về.
+
+@faker-js/faker (devDependencies): Thư viện tạo dữ liệu giả ngẫu nhiên (như tên, email, địa chỉ, số điện thoại) cực kỳ hữu ích để phục vụ cho việc viết test dữ liệu mẫu hoặc seed database.
+
+osie (devDependencies): Thư viện hỗ trợ mô hình Factory Pattern cho JavaScript và TypeScript, chuyên dùng trong việc tạo dữ liệu mẫu (mock data) cho các bài kiểm thử (testing). Thay vì phải viết thủ công từng đối tượng dữ liệu hoặc lặp lại cấu trúc phức tạp ở mỗi test case, rosie cho phép định nghĩa sẵn các khuôn mẫu (blueprints) cho từng thực thể (như Product, User, Order), sau đó dễ dàng sinh ra dữ liệu ngẫu nhiên hoặc ghi đè các thuộc tính cụ thể một cách cực kỳ nhanh chóng và gọn gàng.
 
 # --- stack
+1. Jest
+Đúng vậy, Jest là một thư viện kiểm thử (testing framework) mã nguồn mở rất phổ biến và mạnh mẽ dành cho hệ sinh thái JavaScript và Node.js, được phát triển và duy trì bởi Meta (Facebook).
+
+Unit Test: Kiểm thử từng hàm, từng class riêng lẻ (như kiểm tra logic tính toán trong CatalogService hoặc Product).
+
+Integration Test: Kiểm thử sự phối hợp giữa nhiều thành phần với nhau (như test kết nối Repository với Database hoặc test các HTTP Route của Express).
+
+Zero-config: Hầu như không cần cấu hình phức tạp, có thể chạy ngay với các dự án JavaScript tiêu chuẩn.
+
+Tích hợp sẵn (All-in-one): Bao gồm sẵn công cụ chạy test (test runner), hàm kiểm tra điều kiện (assertions như expect().toBe()), và tính năng đo độ bao phủ mã nguồn (code coverage) mà không cần cài thêm thư viện phụ trợ.
+
+Mocking mạnh mẽ: Hỗ trợ giả lập (mock) các hàm, module, hoặc API dễ dàng, rất thích hợp khi cần test các service phụ thuộc vào database bên ngoài.
+
+2. Clean Architecture
+Clean Architecture trong Node.js TypeScript microservice là mô hình phân tầng mã nguồn nhằm tách biệt hoàn toàn logic nghiệp vụ cốt lõi khỏi các công nghệ bên ngoài như Web Framework (Express, Fastify), Database (MongoDB, PostgreSQL) hay các thư viện bên thứ ba.
+
+Entities (Domain): Chứa các đối tượng nghiệp vụ cốt lõi và quy tắc dữ liệu thuần túy bằng TypeScript, hoàn toàn độc lập với database hay các thư viện ngoài.
+
+Use Cases (Services): Nơi chứa các business logic cụ thể của ứng dụng (ví dụ: CreateProduct, GetProduct), điều phối dữ liệu và gọi các interface trung gian.
+
+Interface Adapters (Controllers / Routers / Repositories): Chuyển đổi dữ liệu giữa bên ngoài và Use Cases. Ví dụ: nhận req.body từ Express, validate qua DTO, sau đó gọi service.
+
+Frameworks & Drivers: Tầng ngoài cùng bao gồm Express server, ORM (Prisma, Mongoose, TypeORM), cấu hình kết nối mạng và các thư viện hạ tầng.
+
+3. ORM
+ORM (Object-Relational Mapping) là một kỹ thuật lập trình giúp liên kết dữ liệu từ cơ sở dữ liệu quan hệ (như PostgreSQL, MySQL) với các đối tượng trong ngôn ngữ lập trình hướng đối tượng (như TypeScript/JavaScript). Thay vì viết các câu lệnh SQL thủ công, bạn thao tác trực tiếp bằng các đối tượng, lớp (class) và phương thức của ngôn ngữ lập trình.
+
+Tác dụng của ORM trong dự án
+Trừu tượng hóa mã SQL: Cho phép thực hiện các thao tác cơ sở dữ liệu (CRUD) thông qua các hàm có sẵn (như .save(), .find(), .update()) mà không cần viết câu lệnh SQL thuần túy.
+
+Tự động ánh xạ dữ liệu: Tự động chuyển đổi các dòng dữ liệu trả về từ bảng trong database thành các đối tượng TypeScript (instance của class) và ngược lại.
+
+Bảo mật tốt hơn: Tự động xử lý và làm sạch dữ liệu đầu vào (escaping parameters), giúp giảm thiểu tối đa rủi ro từ các cuộc tấn công SQL Injection.
+
+Quản lý cấu trúc (Migrations): Hỗ trợ quản lý và đồng bộ hóa sự thay đổi cấu trúc bảng, cột dữ liệu của cơ sở dữ liệu theo các phiên bản code một cách nhất quán.
+
+Độc lập cơ sở dữ liệu: Giúp dễ dàng chuyển đổi qua lại giữa các hệ quản trị cơ sở dữ liệu khác nhau (ví dụ từ PostgreSQL sang MySQL) mà ít phải sửa đổi lại logic nghiệp vụ bên trong code.
+
+4. PRISMA
+Prisma là một TypeScript/JavaScript ORM (Object-Relational Mapping) thế hệ mới dùng để thao tác với cơ sở dữ liệu một cách an toàn, hiện đại và dễ bảo trì. Thay vì viết các câu lệnh SQL thủ công hoặc dùng các ORM truyền thống, Prisma cung cấp một giao diện lập trình trực quan để quản lý dữ liệu cho các ứng dụng Node.js, TypeScript hoặc dịch vụ backend
+
+Prisma Schema (schema.prisma): Nơi bạn định nghĩa mô hình dữ liệu (models), các mối quan hệ (relations) giữa các bảng và cấu hình kết nối database bằng một cú pháp tập trung độc quyền cực kỳ dễ đọc.
+
+Prisma Client: Một thư viện truy vấn kiểu tĩnh (type-safe) được tự động sinh ra dựa trên schema của bạn, giúp bạn viết mã TypeScript gợi ý code (autocompletion) cực tốt và phát hiện lỗi ngay từ lúc gõ code.
+
+Prisma Migrate: Công cụ quản lý và thực hiện các bản di chuyển cơ sở dữ liệu (database migrations) tự động dựa trên sự thay đổi của file schema.
 
 # --- more, logic
 1. 
@@ -54,6 +115,30 @@ Events:
 customer - Orders
 Orders - Payment Context
 
+-
+Express App - Post/products - Service - Repository
 
+Service - Mock
 
+Super test - Express App
 
+-
+Independent of Frameworks
+testable
+independent of UI
+Indepedent of Database
+Independent of any external package or entity
+
+- Clean aRchiteuture
+Entities
+useCase
+Controllers, Gateways, presentsers
+Web, UI, external interfacem DB, Devices
+
+- ORM
+when not put effor writing sql eueirs on low-level database complexity
+when it comes to productive rapid development/starup project / buildprototypes/POC
+at any time, the databse can be changed based on bussness reuiqement
+not caring about manual satization to protect to data. ORM will handle most of them
+get ad vantages of type-safety object oreibted programing
+automic quey genearttion and object relation mapping
