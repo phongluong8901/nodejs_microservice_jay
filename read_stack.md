@@ -40,6 +40,19 @@ Interface Adapters (Controllers / Routers / Repositories): Chuyển đổi dữ 
 
 Frameworks & Drivers: Tầng ngoài cùng bao gồm Express server, ORM (Prisma, Mongoose, TypeORM), cấu hình kết nối mạng và các thư viện hạ tầng.
 
+3. ORM
+ORM (Object-Relational Mapping) là một kỹ thuật lập trình giúp liên kết dữ liệu từ cơ sở dữ liệu quan hệ (như PostgreSQL, MySQL) với các đối tượng trong ngôn ngữ lập trình hướng đối tượng (như TypeScript/JavaScript). Thay vì viết các câu lệnh SQL thủ công, bạn thao tác trực tiếp bằng các đối tượng, lớp (class) và phương thức của ngôn ngữ lập trình.
+
+Tác dụng của ORM trong dự án
+Trừu tượng hóa mã SQL: Cho phép thực hiện các thao tác cơ sở dữ liệu (CRUD) thông qua các hàm có sẵn (như .save(), .find(), .update()) mà không cần viết câu lệnh SQL thuần túy.
+
+Tự động ánh xạ dữ liệu: Tự động chuyển đổi các dòng dữ liệu trả về từ bảng trong database thành các đối tượng TypeScript (instance của class) và ngược lại.
+
+Bảo mật tốt hơn: Tự động xử lý và làm sạch dữ liệu đầu vào (escaping parameters), giúp giảm thiểu tối đa rủi ro từ các cuộc tấn công SQL Injection.
+
+Quản lý cấu trúc (Migrations): Hỗ trợ quản lý và đồng bộ hóa sự thay đổi cấu trúc bảng, cột dữ liệu của cơ sở dữ liệu theo các phiên bản code một cách nhất quán.
+
+Độc lập cơ sở dữ liệu: Giúp dễ dàng chuyển đổi qua lại giữa các hệ quản trị cơ sở dữ liệu khác nhau (ví dụ từ PostgreSQL sang MySQL) mà ít phải sửa đổi lại logic nghiệp vụ bên trong code.
 
 
 # --- more, logic
