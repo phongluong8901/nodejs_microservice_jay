@@ -41,16 +41,28 @@ yarn add @faker-js/faker --dev
 yarn add rosie @types/rosie -D
 yarn add class-transformer class-validator
 
+npx prisma orm init --yes --target postgres --authoring psl
+
 
 -- cd order_service
 
 --- run
-- cd catalog_service
+- run catalog service
+cd proj_1/catalog_service
 yarn dev
 yarn build
 
+- run order service
 
---- migrate
+- run postgresql
+-> voi dung wsl -> check host: hostname -I -> 172.26.88.47
+cd proj_1/db
+docker-compose up -d
+
+
+--- migrate Prisma cho DB
+cd proj_1/catalog_service
+npx prisma contract emit
 
 --- docker
 

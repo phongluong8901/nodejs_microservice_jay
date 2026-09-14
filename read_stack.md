@@ -54,6 +54,14 @@ Quản lý cấu trúc (Migrations): Hỗ trợ quản lý và đồng bộ hóa
 
 Độc lập cơ sở dữ liệu: Giúp dễ dàng chuyển đổi qua lại giữa các hệ quản trị cơ sở dữ liệu khác nhau (ví dụ từ PostgreSQL sang MySQL) mà ít phải sửa đổi lại logic nghiệp vụ bên trong code.
 
+4. PRISMA
+Prisma là một TypeScript/JavaScript ORM (Object-Relational Mapping) thế hệ mới dùng để thao tác với cơ sở dữ liệu một cách an toàn, hiện đại và dễ bảo trì. Thay vì viết các câu lệnh SQL thủ công hoặc dùng các ORM truyền thống, Prisma cung cấp một giao diện lập trình trực quan để quản lý dữ liệu cho các ứng dụng Node.js, TypeScript hoặc dịch vụ backend
+
+Prisma Schema (schema.prisma): Nơi bạn định nghĩa mô hình dữ liệu (models), các mối quan hệ (relations) giữa các bảng và cấu hình kết nối database bằng một cú pháp tập trung độc quyền cực kỳ dễ đọc.
+
+Prisma Client: Một thư viện truy vấn kiểu tĩnh (type-safe) được tự động sinh ra dựa trên schema của bạn, giúp bạn viết mã TypeScript gợi ý code (autocompletion) cực tốt và phát hiện lỗi ngay từ lúc gõ code.
+
+Prisma Migrate: Công cụ quản lý và thực hiện các bản di chuyển cơ sở dữ liệu (database migrations) tự động dựa trên sự thay đổi của file schema.
 
 # --- more, logic
 1. 
@@ -126,3 +134,11 @@ Entities
 useCase
 Controllers, Gateways, presentsers
 Web, UI, external interfacem DB, Devices
+
+- ORM
+when not put effor writing sql eueirs on low-level database complexity
+when it comes to productive rapid development/starup project / buildprototypes/POC
+at any time, the databse can be changed based on bussness reuiqement
+not caring about manual satization to protect to data. ORM will handle most of them
+get ad vantages of type-safety object oreibted programing
+automic quey genearttion and object relation mapping

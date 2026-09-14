@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "module": "nodenext", // Bật chuẩn module ESM hiện đại của Node.js, khớp với "type": "module" trong package.json
-    "rootDir": "./src", // Thư mục chứa mã nguồn TypeScript (.ts) đầu vào
+    "module": "preserve", // Bật chuẩn module ESM hiện đại của Node.js, khớp với "type": "module" trong package.json
     "outDir": "./dist", // Thư mục chứa mã JavaScript sau khi biên dịch
     "target": "esnext", // Phiên bản JavaScript đích mới nhất cho mã nguồn sau biên dịch
-    "types": [], // Vô hiệu hóa tự động nạp các gói @types toàn cục
+    "types": [
+      "node"
+    ], // Nạp tường minh các gói kiểu dữ liệu toàn cục của Node.js (như process, Buffer)
     "sourceMap": true, // Tạo file .js.map để hỗ trợ gỡ lỗi ngược về file .ts gốc
     "declaration": true, // Tự động tạo file định nghĩa kiểu .d.ts cho các module
     "declarationMap": true, // Tạo map cho file .d.ts để trỏ thẳng tới file .ts khi bấm "Go to Definition"
@@ -18,11 +19,19 @@
     "noUncheckedSideEffectImports": true, // Báo lỗi nếu import file có hiệu ứng phụ nhưng đường dẫn không tồn tại
     "moduleDetection": "force", // Buộc coi mọi file không có import/export cũng là một module độc lập
     "skipLibCheck": true, // Bỏ qua kiểm tra kiểu bên trong thư mục node_modules/@types để tăng tốc build
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "experimentalDecorators": true, // Cho phép sử dụng cú pháp Decorators thử nghiệm
+    "emitDecoratorMetadata": true, // Phát sinh metadata kiểu dữ liệu cho decorators (hỗ trợ NestJS/TypeORM/Prisma)
+    "moduleResolution": "bundler", // Chiến lược phân giải module tối ưu cho các trình đóng gói hiện đại
+    "resolveJsonModule": true // Cho phép import trực tiếp các file .json trong mã nguồn TypeScript
   },
+  "include": [
+    "src/**/*", // Bao gồm toàn bộ file mã nguồn trong thư mục src
+    "*.ts", // Bao gồm các file TypeScript cấu hình nằm ở thư mục gốc (như prisma.config.ts)
+    "*.cts", // Bao gồm các file cấu hình CommonJS TypeScript ở thư mục gốc
+    "*.mts" // Bao gồm các file cấu hình ES Modules TypeScript ở thư mục gốc
+  ],
   "exclude": [
-    "jest.config.ts",
-    "dist"
+    "jest.config.ts", // Loại trừ file cấu hình Jest không cần biên dịch
+    "dist" // Loại trừ thư mục chứa kết quả build cũ
   ]
 }
