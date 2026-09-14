@@ -64,6 +64,8 @@ yarn create jest
 ✔ Which provider should be used to instrument code for coverage? › v8
 ✔ Automatically clear mock calls, instances, contexts and results before every test? … yes
 
+yarn add drizzle-orm pg
+yarn add -D drizzle-kit @types/pg
 
 --- run
 - run catalog service
@@ -87,7 +89,19 @@ npx prisma contract emit
 - day vao db
 npx prisma db update 
 
+--- migrate Drizzle ORM
+yarn db:generate: Tạo file migration SQL từ code schema.
+yarn db:migrate: Thực thi các file migration vào database.
+yarn db:push: Đồng bộ nhanh code schema thẳng vào database không cần file migration.
+yarn db:studio: Mở giao diện web quản lý database trên cổng 6000.
+
+yarn db:generate -> yarn db:migrate -> yarn db:push
+
 --- docker
+cd proj_1/db
+docker-compose up -d
+
+docker-compose down
 
 --- deploy
 

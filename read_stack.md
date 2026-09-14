@@ -54,7 +54,7 @@ Quản lý cấu trúc (Migrations): Hỗ trợ quản lý và đồng bộ hóa
 
 Độc lập cơ sở dữ liệu: Giúp dễ dàng chuyển đổi qua lại giữa các hệ quản trị cơ sở dữ liệu khác nhau (ví dụ từ PostgreSQL sang MySQL) mà ít phải sửa đổi lại logic nghiệp vụ bên trong code.
 
-4. PRISMA
+4. PRISMA ORM
 Prisma là một TypeScript/JavaScript ORM (Object-Relational Mapping) thế hệ mới dùng để thao tác với cơ sở dữ liệu một cách an toàn, hiện đại và dễ bảo trì. Thay vì viết các câu lệnh SQL thủ công hoặc dùng các ORM truyền thống, Prisma cung cấp một giao diện lập trình trực quan để quản lý dữ liệu cho các ứng dụng Node.js, TypeScript hoặc dịch vụ backend
 
 Prisma Schema (schema.prisma): Nơi bạn định nghĩa mô hình dữ liệu (models), các mối quan hệ (relations) giữa các bảng và cấu hình kết nối database bằng một cú pháp tập trung độc quyền cực kỳ dễ đọc.
@@ -62,6 +62,23 @@ Prisma Schema (schema.prisma): Nơi bạn định nghĩa mô hình dữ liệu (
 Prisma Client: Một thư viện truy vấn kiểu tĩnh (type-safe) được tự động sinh ra dựa trên schema của bạn, giúp bạn viết mã TypeScript gợi ý code (autocompletion) cực tốt và phát hiện lỗi ngay từ lúc gõ code.
 
 Prisma Migrate: Công cụ quản lý và thực hiện các bản di chuyển cơ sở dữ liệu (database migrations) tự động dựa trên sự thay đổi của file schema.
+
+5. Drizzle ORM
+Drizzle ORM là một thư viện TypeScript ORM (Object-Relational Mapping) mã nguồn mở, hiện đại dành cho các cơ sở dữ liệu quan hệ (PostgreSQL, MySQL, SQLite, v.v.).
+
+Type-safe tuyệt đối: Tận dụng tối đa hệ thống type của TypeScript giúp bắt lỗi SQL ngay từ lúc gõ code (compile-time).
+
+Hiệu năng cao (Near-zero overhead): Drizzle được thiết kế nhẹ, cú pháp viết truy vấn rất gần với SQL thuần (SQL-like syntax) nên không bị nặng nề hay ảnh hưởng hiệu năng như một số ORM lớn khác (ví dụ như Prisma hay TypeORM).
+
+Linh hoạt: Cung cấp cả hai cách viết là Truy vấn kiểu đối tượng (Relational Queries) và Truy vấn kiểu SQL (SQL-like builder).
+
+trong project
+Quản lý Schema & Giao tiếp Database: Drizzle đóng vai trò là cầu nối cốt lõi giúp service (order_service, cart_service,...) kết nối và thao tác với Database (như PostgreSQL hoặc MySQL) để lưu trữ thông tin giỏ hàng (cart), đơn hàng (order),...
+
+Thực hiện Migration & Table Definition: Định nghĩa cấu trúc bảng (columns, types, constraints) bằng TypeScript, giúp tự động sinh và quản lý các câu lệnh migration một cách rõ ràng.
+
+Đảm bảo An toàn Kiểu Dữ liệu (Type Safety): Nhờ việc tích hợp chặt chẽ với TypeScript, dữ liệu đầu vào khi thao tác với database (input, cart) sẽ được kiểm tra kiểu dữ liệu tự động, hạn chế tối đa các lỗi Runtime do sai kiểu dữ liệu trả về từ database.
+
 
 # --- more, logic
 1. 
