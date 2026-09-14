@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "module": "preserve", // Bật chuẩn module ESM hiện đại của Node.js, khớp với "type": "module" trong package.json
+    "outDir": "./dist", // Thư mục chứa mã JavaScript sau khi biên dịch
+    "target": "esnext", // Phiên bản JavaScript đích mới nhất cho mã nguồn sau biên dịch
+    "types": [
+      "node"
+    ], // Nạp tường minh các gói kiểu dữ liệu toàn cục của Node.js (như process, Buffer)
+    "sourceMap": true, // Tạo file .js.map để hỗ trợ gỡ lỗi ngược về file .ts gốc
+    "declaration": true, // Tự động tạo file định nghĩa kiểu .d.ts cho các module
+    "declarationMap": true, // Tạo map cho file .d.ts để trỏ thẳng tới file .ts khi bấm "Go to Definition"
+    "noUncheckedIndexedAccess": true, // Bắt buộc kiểm tra undefined khi truy xuất phần tử mảng hoặc object qua index
+    "exactOptionalPropertyTypes": true, // Không cho phép gán tường minh giá trị undefined vào thuộc tính tùy chọn
+    "strictPropertyInitialization": false, // Tắt bắt buộc khởi tạo giá trị ngay cho các thuộc tính bên trong class
+    "strict": true, // Bật toàn bộ các cờ kiểm tra kiểu dữ liệu nghiêm ngặt của TypeScript
+    "jsx": "react-jsx", // Cấu hình biên dịch cú pháp JSX theo kiểu mới của React 17+
+    "verbatimModuleSyntax": true, // Giữ nguyên cú pháp import/export và phân biệt rõ ràng giữa kiểu dữ liệu (type) và giá trị
+    "isolatedModules": true, // Đảm bảo mỗi file tự chứa đủ thông tin để biên dịch độc lập (cần cho tsx/esbuild)
+    "noUncheckedSideEffectImports": true, // Báo lỗi nếu import file có hiệu ứng phụ nhưng đường dẫn không tồn tại
+    "moduleDetection": "force", // Buộc coi mọi file không có import/export cũng là một module độc lập
+    "skipLibCheck": true, // Bỏ qua kiểm tra kiểu bên trong thư mục node_modules/@types để tăng tốc build
+    "experimentalDecorators": true, // Cho phép sử dụng cú pháp Decorators thử nghiệm
+    "emitDecoratorMetadata": true, // Phát sinh metadata kiểu dữ liệu cho decorators (hỗ trợ NestJS/TypeORM/Prisma)
+    "moduleResolution": "bundler", // Chiến lược phân giải module tối ưu cho các trình đóng gói hiện đại
+    "resolveJsonModule": true // Cho phép import trực tiếp các file .json trong mã nguồn TypeScript
+  },
+  "include": [
+    "src/**/*", // Bao gồm toàn bộ file mã nguồn trong thư mục src
+    "*.ts", // Bao gồm các file TypeScript cấu hình nằm ở thư mục gốc (như prisma.config.ts)
+    "*.cts", // Bao gồm các file cấu hình CommonJS TypeScript ở thư mục gốc
+    "*.mts" // Bao gồm các file cấu hình ES Modules TypeScript ở thư mục gốc
+  ],
+  "exclude": [
+    "jest.config.ts", // Loại trừ file cấu hình Jest không cần biên dịch
+    "dist" // Loại trừ thư mục chứa kết quả build cũ
+  ]
+}

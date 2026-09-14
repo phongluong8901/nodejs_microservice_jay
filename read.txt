@@ -19,7 +19,9 @@ yarn add @types/express --dev
 
 - cd order_service
 npm init --y
-
+yarn add express express-rate-limiter dotenv
+yarn add nodemon typescript ts-node jest ts-jest @types/express @types/node -D --save
+yarn tsc --init
 
 
 --- install
