@@ -80,6 +80,12 @@ yarn add axios
 
 yarn add kafkajs
 
+-- cd user_service
+npm init -y
+npm i bcryptjs@2.4.3 dotenv@16.4.5 express@4.21.0 jsonwebtoken@9.0.2 pg@8.13.0
+npm i -D @types/bcryptjs @types/express @types/jsonwebtoken @types/pg
+
+
 --- run
 - run catalog service
 cd proj_1/catalog_service
@@ -89,10 +95,8 @@ yarn build
 - run order service
 yarn dev
 
-- run postgresql
--> voi dung wsl -> check host: hostname -I -> 172.26.88.47
-cd proj_1/db
-docker-compose up -d
+- run user service
+yarn dev
 
 
 --- migrate Prisma cho DB
@@ -112,6 +116,10 @@ yarn db:push: Đồng bộ nhanh code schema thẳng vào database không cần 
 yarn db:studio: Mở giao diện web quản lý database trên cổng 6000.
 
 yarn db:generate -> yarn db:migrate -> yarn db:push
+
+
+--- migration db cua user_service
+vao table plus -> copy code create o db.sql -> tao file sql -> paste vao de no tao
 
 --- docker
 - cd proj_1/db

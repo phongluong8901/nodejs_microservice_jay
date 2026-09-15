@@ -122,6 +122,20 @@ Khi có thông tin mới được tạo ra hoặc cập nhật ở hệ thống 
 Khả năng chịu lỗi và mở rộng cao (Scalability & Fault Tolerance):
 Nếu Elasticsearch bị quá tải, Kafka có thể lưu trữ tạm các message trong hàng đợi (queue) cho đến khi Elasticsearch hồi phục, ngăn ngừa việc mất mát dữ liệu.
 
+7. Robust Kafka Auth
+Cụm từ này chỉ một hệ thống microservice viết bằng Node.js kết hợp với Apache Kafka, trong đó từ "Auth" đại diện cho hệ thống Authentication / Authorization (Xác thực và Phân quyền), và từ "Robust" nhấn mạnh tính vững chãi, an toàn, có khả năng chịu lỗi cao (xử lý tốt khi mất kết nối, tự động retry, phân quyền bảo mật, mã hóa dữ liệu truyền tải qua mạng).
+
+Tác dụng trong dự án của bạn (Dự án Order Service & Microservices)
+Bảo mật luồng truyền tin (Security & SASL/SSL):
+Trong môi trường production, các sự kiện nhạy cảm (như ORDER_CREATED, PAYMENT_SUCCESS) chứa thông tin tài chính và dữ liệu người dùng. Cơ chế Auth giúp mã hóa và xác thực danh tính các microservice khi kết nối vào cụm Kafka, ngăn chặn các service lạ hoặc kẻ gian lận lắng nghe trộm dữ liệu trên message broker.
+
+Đồng bộ trạng thái người dùng/đơn hàng phân tán (Decoupled Sync):
+Khi một đơn hàng được tạo (order_service), nó cần xác thực xem user có đủ quyền hay thông tin còn hiệu lực hay không. Thay vì gọi API đồng bộ dễ gây nghẽn cổ chai (bottleneck), service sẽ bắn một event lên Kafka được bảo mật chặt chẽ để các service khác cùng lắng nghe và xử lý độc lập.
+
+Khả năng chịu lỗi và tự phục hồi (Fault Tolerance):
+Mô hình "Robust" đảm bảo rằng nếu một microservice bị sập giữa chừng khi đang đọc tin nhắn, Kafka không bị mất dữ liệu nhờ cơ chế quản lý Offset (commitOffsets) và kết nối lại tự động mà không làm sập toàn bộ hệ thống (như lỗi ECONNREFUSED bạn vừa gặp).
+
+
 # --- more, logic
 1. 
 Nodejs microservices using
@@ -217,3 +231,10 @@ stock management - (consume/publish) - kafka - (consume/publish) - cart manageme
 order_evetns - topic - record
 
 producer - pushing record to topic - topic - pull message - consumer
+
+---
+cart - collect the payment - create order - order - ship the order items
+cart - store all cart items in BE/databse - success
+
+cart - continue to place order - creating order - collecting payment
+
