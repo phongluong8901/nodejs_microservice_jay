@@ -1,6 +1,140 @@
 # --- lib
+express: Framework web tối giản và linh hoạt cho Node.js, dùng để xây dựng các RESTful API, quản lý routing, middleware và xử lý HTTP request/response cho microservice.
+
+nodemon (devDependencies): Công cụ tự động khởi động lại ứng dụng Node.js khi phát hiện có tệp mã nguồn thay đổi, giúp tiết kiệm thời gian trong quá trình phát triển (development).
+
+typescript (devDependencies): Ngôn ngữ lập trình mở rộng của JavaScript mang lại tính năng kiểm tra kiểu tĩnh (static typing) và các tính năng hướng đối tượng hiện đại trước khi biên dịch ra JavaScript.
+
+ts-node (devDependencies): Trình thực thi trực tiếp mã TypeScript trên Node.js mà không cần bước biên dịch thủ công ra JavaScript (thường dùng kết hợp với nodemon khi dev).
+
+jest (devDependencies): Framework kiểm thử JavaScript/TypeScript phổ biến, mạnh mẽ và hỗ trợ sẵn tính năng tạo mock, snapshot testing, và đo lường độ bao phủ mã nguồn (code coverage).
+
+supertest (devDependencies): Thư viện chuyên dụng để kiểm thử các HTTP server (như Express app), cho phép gửi các request giả lập (GET, POST, PUT, DELETE) và kiểm tra kết quả trả về.
+
+@faker-js/faker (devDependencies): Thư viện tạo dữ liệu giả ngẫu nhiên (như tên, email, địa chỉ, số điện thoại) cực kỳ hữu ích để phục vụ cho việc viết test dữ liệu mẫu hoặc seed database.
+
+osie (devDependencies): Thư viện hỗ trợ mô hình Factory Pattern cho JavaScript và TypeScript, chuyên dùng trong việc tạo dữ liệu mẫu (mock data) cho các bài kiểm thử (testing). Thay vì phải viết thủ công từng đối tượng dữ liệu hoặc lặp lại cấu trúc phức tạp ở mỗi test case, rosie cho phép định nghĩa sẵn các khuôn mẫu (blueprints) cho từng thực thể (như Product, User, Order), sau đó dễ dàng sinh ra dữ liệu ngẫu nhiên hoặc ghi đè các thuộc tính cụ thể một cách cực kỳ nhanh chóng và gọn gàng.
+
+@sinclair/typebox: Thư viện tạo schema và định nghĩa kiểu dữ liệu (type) cho TypeScript với tốc độ cực nhanh, giúp vừa validate dữ liệu vừa sinh ra type TypeScript tại thời điểm chạy (runtime).
+
+ajv (Another JSON Schema Validator): Thư viện validate JSON Schema có hiệu năng cao và phổ biến hàng đầu trong hệ sinh thái Node.js.
+
+pino: Thư viện ghi log (logging) siêu nhanh, hiệu năng cao và cực kỳ nhẹ cho Node.js, xuất dữ liệu log dưới định dạng JSON tối ưu cho việc phân tích.
+
+pino-http: Middleware HTTP tự động gắn kèm với pino để ghi log toàn bộ các request và response HTTP đến server (như thời gian xử lý, mã status code, đường dẫn URL, phương thức request) một cách tự động và chuyên nghiệp trong các ứng dụng Microservices.
+
+class-validator: Thư viện dùng để kiểm tra tính hợp lệ (validate) của dữ liệu dựa trên các Decorators (như @IsString(), @IsInt(), @IsEmail(), @Min()) gắn trực tiếp lên các thuộc tính của Class.
+
+axios: Thư viện HTTP client dựa trên Promise dùng để thực hiện các yêu cầu (requests) HTTP/HTTPS từ Node.js hoặc trình duyệt (như gọi API đến các dịch vụ khác, gửi/nhận dữ liệu JSON, xử lý interceptor, timeout).
+
 
 # --- stack
+1. Jest
+Đúng vậy, Jest là một thư viện kiểm thử (testing framework) mã nguồn mở rất phổ biến và mạnh mẽ dành cho hệ sinh thái JavaScript và Node.js, được phát triển và duy trì bởi Meta (Facebook).
+
+Unit Test: Kiểm thử từng hàm, từng class riêng lẻ (như kiểm tra logic tính toán trong CatalogService hoặc Product).
+
+Integration Test: Kiểm thử sự phối hợp giữa nhiều thành phần với nhau (như test kết nối Repository với Database hoặc test các HTTP Route của Express).
+
+Zero-config: Hầu như không cần cấu hình phức tạp, có thể chạy ngay với các dự án JavaScript tiêu chuẩn.
+
+Tích hợp sẵn (All-in-one): Bao gồm sẵn công cụ chạy test (test runner), hàm kiểm tra điều kiện (assertions như expect().toBe()), và tính năng đo độ bao phủ mã nguồn (code coverage) mà không cần cài thêm thư viện phụ trợ.
+
+Mocking mạnh mẽ: Hỗ trợ giả lập (mock) các hàm, module, hoặc API dễ dàng, rất thích hợp khi cần test các service phụ thuộc vào database bên ngoài.
+
+2. Clean Architecture
+Clean Architecture trong Node.js TypeScript microservice là mô hình phân tầng mã nguồn nhằm tách biệt hoàn toàn logic nghiệp vụ cốt lõi khỏi các công nghệ bên ngoài như Web Framework (Express, Fastify), Database (MongoDB, PostgreSQL) hay các thư viện bên thứ ba.
+
+Entities (Domain): Chứa các đối tượng nghiệp vụ cốt lõi và quy tắc dữ liệu thuần túy bằng TypeScript, hoàn toàn độc lập với database hay các thư viện ngoài.
+
+Use Cases (Services): Nơi chứa các business logic cụ thể của ứng dụng (ví dụ: CreateProduct, GetProduct), điều phối dữ liệu và gọi các interface trung gian.
+
+Interface Adapters (Controllers / Routers / Repositories): Chuyển đổi dữ liệu giữa bên ngoài và Use Cases. Ví dụ: nhận req.body từ Express, validate qua DTO, sau đó gọi service.
+
+Frameworks & Drivers: Tầng ngoài cùng bao gồm Express server, ORM (Prisma, Mongoose, TypeORM), cấu hình kết nối mạng và các thư viện hạ tầng.
+
+3. ORM
+ORM (Object-Relational Mapping) là một kỹ thuật lập trình giúp liên kết dữ liệu từ cơ sở dữ liệu quan hệ (như PostgreSQL, MySQL) với các đối tượng trong ngôn ngữ lập trình hướng đối tượng (như TypeScript/JavaScript). Thay vì viết các câu lệnh SQL thủ công, bạn thao tác trực tiếp bằng các đối tượng, lớp (class) và phương thức của ngôn ngữ lập trình.
+
+Tác dụng của ORM trong dự án
+Trừu tượng hóa mã SQL: Cho phép thực hiện các thao tác cơ sở dữ liệu (CRUD) thông qua các hàm có sẵn (như .save(), .find(), .update()) mà không cần viết câu lệnh SQL thuần túy.
+
+Tự động ánh xạ dữ liệu: Tự động chuyển đổi các dòng dữ liệu trả về từ bảng trong database thành các đối tượng TypeScript (instance của class) và ngược lại.
+
+Bảo mật tốt hơn: Tự động xử lý và làm sạch dữ liệu đầu vào (escaping parameters), giúp giảm thiểu tối đa rủi ro từ các cuộc tấn công SQL Injection.
+
+Quản lý cấu trúc (Migrations): Hỗ trợ quản lý và đồng bộ hóa sự thay đổi cấu trúc bảng, cột dữ liệu của cơ sở dữ liệu theo các phiên bản code một cách nhất quán.
+
+Độc lập cơ sở dữ liệu: Giúp dễ dàng chuyển đổi qua lại giữa các hệ quản trị cơ sở dữ liệu khác nhau (ví dụ từ PostgreSQL sang MySQL) mà ít phải sửa đổi lại logic nghiệp vụ bên trong code.
+
+4. PRISMA ORM
+Prisma là một TypeScript/JavaScript ORM (Object-Relational Mapping) thế hệ mới dùng để thao tác với cơ sở dữ liệu một cách an toàn, hiện đại và dễ bảo trì. Thay vì viết các câu lệnh SQL thủ công hoặc dùng các ORM truyền thống, Prisma cung cấp một giao diện lập trình trực quan để quản lý dữ liệu cho các ứng dụng Node.js, TypeScript hoặc dịch vụ backend
+
+Prisma Schema (schema.prisma): Nơi bạn định nghĩa mô hình dữ liệu (models), các mối quan hệ (relations) giữa các bảng và cấu hình kết nối database bằng một cú pháp tập trung độc quyền cực kỳ dễ đọc.
+
+Prisma Client: Một thư viện truy vấn kiểu tĩnh (type-safe) được tự động sinh ra dựa trên schema của bạn, giúp bạn viết mã TypeScript gợi ý code (autocompletion) cực tốt và phát hiện lỗi ngay từ lúc gõ code.
+
+Prisma Migrate: Công cụ quản lý và thực hiện các bản di chuyển cơ sở dữ liệu (database migrations) tự động dựa trên sự thay đổi của file schema.
+
+5. Drizzle ORM
+Drizzle ORM là một thư viện TypeScript ORM (Object-Relational Mapping) mã nguồn mở, hiện đại dành cho các cơ sở dữ liệu quan hệ (PostgreSQL, MySQL, SQLite, v.v.).
+
+Type-safe tuyệt đối: Tận dụng tối đa hệ thống type của TypeScript giúp bắt lỗi SQL ngay từ lúc gõ code (compile-time).
+
+Hiệu năng cao (Near-zero overhead): Drizzle được thiết kế nhẹ, cú pháp viết truy vấn rất gần với SQL thuần (SQL-like syntax) nên không bị nặng nề hay ảnh hưởng hiệu năng như một số ORM lớn khác (ví dụ như Prisma hay TypeORM).
+
+Linh hoạt: Cung cấp cả hai cách viết là Truy vấn kiểu đối tượng (Relational Queries) và Truy vấn kiểu SQL (SQL-like builder).
+
+trong project
+Quản lý Schema & Giao tiếp Database: Drizzle đóng vai trò là cầu nối cốt lõi giúp service (order_service, cart_service,...) kết nối và thao tác với Database (như PostgreSQL hoặc MySQL) để lưu trữ thông tin giỏ hàng (cart), đơn hàng (order),...
+
+Thực hiện Migration & Table Definition: Định nghĩa cấu trúc bảng (columns, types, constraints) bằng TypeScript, giúp tự động sinh và quản lý các câu lệnh migration một cách rõ ràng.
+
+Đảm bảo An toàn Kiểu Dữ liệu (Type Safety): Nhờ việc tích hợp chặt chẽ với TypeScript, dữ liệu đầu vào khi thao tác với database (input, cart) sẽ được kiểm tra kiểu dữ liệu tự động, hạn chế tối đa các lỗi Runtime do sai kiểu dữ liệu trả về từ database.
+
+6. Kafka
+Apache Kafka là một nền tảng streaming sự kiện phân tán (distributed event streaming platform) mã nguồn mở, được phát triển bởi Apache Software Foundation. Nó hoạt động như một hệ thống nhắn tin (messaging system) có hiệu suất cao, cho phép các hệ thống, ứng dụng và microservices trao đổi dữ liệu với nhau theo thời gian thực (real-time).
+
+Các khái niệm cốt lõi trong Kafka:
+
+Producer: Bên gửi (sinh ra) dữ liệu/sự kiện vào Kafka.
+
+Consumer: Bên nhận (tiêu thụ) dữ liệu từ Kafka để xử lý.
+
+Topic: Kênh hoặc danh mục lưu trữ các sự kiện/tin nhắn (tương tự như một bảng hoặc thư mục).
+
+Broker: Các máy chủ chạy Kafka cluster, chịu trách nhiệm lưu trữ và phục vụ dữ liệu.
+
+Partition: Các phân đoạn nhỏ của một Topic giúp phân phối tải và tăng khả năng xử lý song song.
+
+Tác dụng của Kafka trong dự án (Microservices + Elasticsearch)
+Nhìn vào tên kho lưu trữ của bạn (kafka_elastic_search_ms - Microservices sử dụng Kafka và Elasticsearch), Kafka đóng vai trò là cầu nối giao tiếp trung tâm (Event Backbone) giữa các microservices hoặc giữa nguồn dữ liệu và hệ thống tìm kiếm (Elasticsearch). Cụ thể:
+
+Truyền tải dữ liệu bất đồng bộ (Asynchronous Messaging):
+Thay vì gọi trực tiếp API từ các dịch vụ sinh dữ liệu sang Elasticsearch (dễ gây nghẽn cổ chai nếu lượng dữ liệu lớn hoặc Elasticsearch gặp sự cố tạm thời), dữ liệu sẽ được đẩy vào Kafka. Kafka sẽ giữ lại (buffer) dữ liệu an toàn.
+
+Giảm ghép nối giữa các hệ thống (Decoupling):
+Dịch vụ gửi dữ liệu không cần biết dịch vụ tìm kiếm (Elasticsearch) đang hoạt động ra sao. Chúng chỉ việc "bắn" sự kiện lên Kafka Topic, việc đọc và đồng bộ dữ liệu vào Elasticsearch sẽ do một Consumer độc lập đảm nhiệm.
+
+Xử lý dữ liệu thời gian thực (Real-time Data Pipeline):
+Khi có thông tin mới được tạo ra hoặc cập nhật ở hệ thống nguồn, Kafka chuyển tiếp lập tức sang các service xử lý để index dữ liệu vào Elasticsearch, giúp người dùng có thể tìm kiếm thông tin gần như ngay lập tức.
+
+Khả năng chịu lỗi và mở rộng cao (Scalability & Fault Tolerance):
+Nếu Elasticsearch bị quá tải, Kafka có thể lưu trữ tạm các message trong hàng đợi (queue) cho đến khi Elasticsearch hồi phục, ngăn ngừa việc mất mát dữ liệu.
+
+7. Robust Kafka Auth
+Cụm từ này chỉ một hệ thống microservice viết bằng Node.js kết hợp với Apache Kafka, trong đó từ "Auth" đại diện cho hệ thống Authentication / Authorization (Xác thực và Phân quyền), và từ "Robust" nhấn mạnh tính vững chãi, an toàn, có khả năng chịu lỗi cao (xử lý tốt khi mất kết nối, tự động retry, phân quyền bảo mật, mã hóa dữ liệu truyền tải qua mạng).
+
+Tác dụng trong dự án của bạn (Dự án Order Service & Microservices)
+Bảo mật luồng truyền tin (Security & SASL/SSL):
+Trong môi trường production, các sự kiện nhạy cảm (như ORDER_CREATED, PAYMENT_SUCCESS) chứa thông tin tài chính và dữ liệu người dùng. Cơ chế Auth giúp mã hóa và xác thực danh tính các microservice khi kết nối vào cụm Kafka, ngăn chặn các service lạ hoặc kẻ gian lận lắng nghe trộm dữ liệu trên message broker.
+
+Đồng bộ trạng thái người dùng/đơn hàng phân tán (Decoupled Sync):
+Khi một đơn hàng được tạo (order_service), nó cần xác thực xem user có đủ quyền hay thông tin còn hiệu lực hay không. Thay vì gọi API đồng bộ dễ gây nghẽn cổ chai (bottleneck), service sẽ bắn một event lên Kafka được bảo mật chặt chẽ để các service khác cùng lắng nghe và xử lý độc lập.
+
+Khả năng chịu lỗi và tự phục hồi (Fault Tolerance):
+Mô hình "Robust" đảm bảo rằng nếu một microservice bị sập giữa chừng khi đang đọc tin nhắn, Kafka không bị mất dữ liệu nhờ cơ chế quản lý Offset (commitOffsets) và kết nối lại tự động mà không làm sập toàn bộ hệ thống (như lỗi ECONNREFUSED bạn vừa gặp).
+
 
 # --- more, logic
 1. 
@@ -54,6 +188,53 @@ Events:
 customer - Orders
 Orders - Payment Context
 
+-
+Express App - Post/products - Service - Repository
 
+Service - Mock
 
+Super test - Express App
+
+-
+Independent of Frameworks
+testable
+independent of UI
+Indepedent of Database
+Independent of any external package or entity
+
+- Clean aRchiteuture
+Entities
+useCase
+Controllers, Gateways, presentsers
+Web, UI, external interfacem DB, Devices
+
+- ORM
+when not put effor writing sql eueirs on low-level database complexity
+when it comes to productive rapid development/starup project / buildprototypes/POC
+at any time, the databse can be changed based on bussness reuiqement
+not caring about manual satization to protect to data. ORM will handle most of them
+get ad vantages of type-safety object oreibted programing
+automic quey genearttion and object relation mapping
+
+---
+User - product catalog - product/smat phone - (add to cart) - cart - cart items
+cart - collect payment - order - order items
+
+--- order and catalog  use cases
+catalog service - product manager/product listing/stock management
+product listing - product details - create cart - order service
+stock management -  product availability & stock - cart management - order service
+stock management - (consume/publish) - kafka - (consume/publish) - cart management/create order - order service
+
+---Consumer - subscriber - sonsumer group - pull - topic - kafka cluster - broker - zookeeper
+
+order_evetns - topic - record
+
+producer - pushing record to topic - topic - pull message - consumer
+
+---
+cart - collect the payment - create order - order - ship the order items
+cart - store all cart items in BE/databse - success
+
+cart - continue to place order - creating order - collecting payment
 

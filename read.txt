@@ -9,6 +9,11 @@ yarn install
 cd proj_1
 mkdir catalog_service order_service
 
+cd order_service
+cd src
+mkdir config, db, repository, routes, service, types, utils, models
+touch .env
+
 - cd catalog_service
 npm init --y
 yarn add express && yarn add nodemon -D
@@ -19,22 +24,111 @@ yarn add @types/express --dev
 
 - cd order_service
 npm init --y
-
-
+yarn add express express-rate-limiter dotenv
+yarn add nodemon typescript ts-node jest ts-jest @types/express @types/node -D --save
+yarn tsc --init
+yarn add -D tsx
 
 --- install
+-- cd catalog_service
+yarn add jest ts-jest @types/jest -D
+yarn add supertest @types/supertest -D
 
+- run
+yarn create jest
+
+✔ Would you like to use Typescript for the configuration file? … yes
+✔ Choose the test environment that will be used for testing › node
+✔ Do you want Jest to add coverage reports? … yes
+✔ Which provider should be used to instrument code for coverage? › v8
+✔ Automatically clear mock calls, instances, contexts and results before every test? … yes
+
+-
+yarn add @faker-js/faker --dev
+yarn add rosie @types/rosie -D
+yarn add class-transformer class-validator
+
+npx prisma orm init --yes --target postgres --authoring psl
+
+yarn add pino-http pino --ignore-engines
+yarn add pino-pretty --ignore-engines
+
+-- cd order_service
+yarn add cors; yarn add @types/cors -D
+yarn add jest ts-jest @types/jest -D
+yarn add supertest @types/supertest -D
+
+- run
+yarn create jest
+
+✔ Would you like to use Typescript for the configuration file? … yes
+✔ Choose the test environment that will be used for testing › node
+✔ Do you want Jest to add coverage reports? … yes
+✔ Which provider should be used to instrument code for coverage? › v8
+✔ Automatically clear mock calls, instances, contexts and results before every test? … yes
+
+yarn add drizzle-orm pg
+yarn add -D drizzle-kit @types/pg
+
+yarn add @sinclair/typebox ajv
+yarn add pino-http pino
+
+yarn add class-validator
+yarn add pino-pretty
+
+yarn add axios
+
+yarn add kafkajs
+
+-- cd user_service
+npm init -y
+npm i bcryptjs@2.4.3 dotenv@16.4.5 express@4.21.0 jsonwebtoken@9.0.2 pg@8.13.0
+npm i -D @types/bcryptjs @types/express @types/jsonwebtoken @types/pg
 
 
 --- run
-- cd catalog_service
+- run catalog service
+cd proj_1/catalog_service
 yarn dev
 yarn build
 
+- run order service
+yarn dev
 
---- migrate
+- run user service
+yarn dev
+
+
+--- migrate Prisma cho DB
+cd proj_1/catalog_service
+- bien dich ra .json va .d.ts
+npx prisma contract emit
+- day vao db
+npx prisma db update 
+-tao table trong DB
+yarn prisma db init
+
+
+--- migrate Drizzle ORM
+yarn db:generate: Tạo file migration SQL từ code schema.
+yarn db:migrate: Thực thi các file migration vào database.
+yarn db:push: Đồng bộ nhanh code schema thẳng vào database không cần file migration.
+yarn db:studio: Mở giao diện web quản lý database trên cổng 6000.
+
+yarn db:generate -> yarn db:migrate -> yarn db:push
+
+
+--- migration db cua user_service
+vao table plus -> copy code create o db.sql -> tao file sql -> paste vao de no tao
 
 --- docker
+- cd proj_1/db
+docker-compose up -d
+
+- cd proj_1/broker
+docker-compose up -d
+
+docker-compose down
 
 --- deploy
 

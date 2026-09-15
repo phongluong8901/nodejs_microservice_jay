@@ -1,5 +1,6 @@
 import express from "express";
 import catalogRouter from './api/catalog.routes.js'
+import { httpLogger, HandleErrorWithLogger } from "./utils/index.js"
 
 const PORT = process.env.PORT || 8000;
 
@@ -10,5 +11,7 @@ app.use(express.json());
 
 // Đăng ký router catalog vào ứng dụng, tất cả các request đi vào gốc sẽ được điều hướng qua catalogRouter
 app.use("/", catalogRouter);
+
+app.use(HandleErrorWithLogger);
 
 export default app;
