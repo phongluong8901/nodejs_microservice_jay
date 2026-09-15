@@ -2,7 +2,6 @@ import { type Static, Type } from "@sinclair/typebox"; // Nhập công cụ Type
 
 export const CartRequestSchema = Type.Object({             // Định nghĩa schema dữ liệu khi tạo giỏ hàng mới
     productId: Type.Integer(),                             // Trường productId bắt buộc phải là số nguyên
-    customerId: Type.Integer(),                            // Trường customerId bắt buộc phải là số nguyên
     qty: Type.Integer(),                                   // Trường qty (số lượng) bắt buộc phải là số nguyên
 });
 
@@ -14,3 +13,24 @@ export const CartEditRequestSchema = Type.Object({         // Định nghĩa sch
 });
 
 export type CartEditRequestInput = Static<typeof CartEditRequestSchema>; // Tự động tạo TypeScript type từ schema sửa giỏ hàng
+
+
+type CartLineItem = {
+    id: number;
+    productId: number;
+    itemName: string;
+    price: string;
+    qty: number;
+    variant: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+    availability?: number;
+};
+
+export interface CartWithLineItems {
+    id: number;
+    customerId: number;
+    lineItems: CartLineItem[];
+    createdAt: Date;
+    updatedAt: Date;
+}

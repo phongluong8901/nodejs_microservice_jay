@@ -2,14 +2,19 @@ import { DB } from "../db/dbconnection"; // Nhập đối tượng kết nối c
 import { type Cart, type CartLineItem, cartLineItems, carts } from "../db/schema"; // Nhập các kiểu dữ liệu TypeScript (Cart, CartLineItem) và bảng (carts, cartLineItems) từ schema
 import { NotFoundError } from "../utils"; // Nhập lớp lỗi tùy chỉnh NotFoundError (dùng để trả về mã lỗi 404)
 import { eq } from "drizzle-orm"; // Nhập toán tử so sánh bằng (equal) để viết điều kiện WHERE trong Drizzle
+import { type CartWithLineItems } from "../dto/cart.request.dto";
 
 // Định nghĩa kiểu dữ liệu (interface/type) cho Repository của giỏ hàng
 export type CartRepositoryType = {
     createCart: (customerId: number, lineItem: CartLineItem) => Promise<number>; // Hàm tạo/cập nhật giỏ hàng, trả về ID giỏ hàng
-    findCart: (id: number) => Promise<Cart>; // Hàm tìm giỏ hàng theo ID khách hàng, trả về thông tin giỏ kèm sản phẩm
+    findCart: (id: number) => Promise<CartWithLineItems>; // Hàm tìm giỏ hàng theo ID khách hàng, trả về thông tin giỏ kèm sản phẩm
     updateCart: (id: number, qty: number) => Promise<CartLineItem>; // Hàm cập nhật số lượng sản phẩm trong giỏ
     deleteCart: (id: number) => Promise<boolean>; // Hàm xóa một dòng sản phẩm khỏi giỏ
     clearCartData: (id: number) => Promise<boolean>; // Hàm xóa toàn bộ giỏ hàng
+    findCartByProductId: (
+        customerId: number,
+        productId: number
+    ) => Promise<CartLineItem>;
 };
 
 // Hàm tạo giỏ hàng mới hoặc cập nhật nếu khách hàng đã có sẵn giỏ hàng
@@ -46,7 +51,7 @@ const createCart = async (
 };
 
 // Hàm tìm kiếm giỏ hàng theo mã khách hàng
-const findCart = async (id: number): Promise<Cart> => {
+const findCart = async (id: number): Promise<CartWithLineItems> => {
     // Sử dụng Drizzle Query API để tìm giỏ hàng đầu tiên khớp với customerId
     const cart = await DB.query.carts.findFirst({
         where: (carts, { eq }) => eq(carts.customerId, id),
@@ -93,6 +98,23 @@ const clearCartData = async (id: number): Promise<boolean> => {
     return true; // Trả về true khi hoàn tất
 };
 
+
+const findCartByProductId = async (
+    customerId: number,
+    productId: number
+): Promise<CartLineItem> => {
+    const cart = await DB.query.carts.findFirst({
+        where: (carts, { eq }) => eq(carts.customerId, customerId),
+        with: {
+            lineItems: true,
+        },
+    });
+
+    const lineItem = cart?.lineItems.find((item) => item.productId === productId);
+
+    return lineItem as CartLineItem;
+};
+
 // Gom nhóm các hàm repository thành một đối tượng duy nhất và xuất ra ngoài để sử dụng ở tầng service
 export const CartRepository: CartRepositoryType = {
     createCart,
@@ -100,4 +122,5 @@ export const CartRepository: CartRepositoryType = {
     updateCart,
     deleteCart,
     clearCartData,
+    findCartByProductId,
 };
