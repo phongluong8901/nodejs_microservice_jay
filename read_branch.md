@@ -27,3 +27,9 @@ git checkout -b p5_order_service
 git add .
 git commit -m "change: first"
 git push -u origin p5_order_service
+
+---
+git checkout -b p6_kafka
+git add .
+git commit -m "change: first"
+git push -u origin p6_kafka

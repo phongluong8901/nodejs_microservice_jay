@@ -1,8 +1,8 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { type NextFunction, type Request, type Response } from "express";
 import * as service from "../service/cart.service";
 import * as repository from "../repository/cart.repository";
 import { ValidateRequest } from "../utils/validator";
-import { CartRequestInput, CartRequestSchema } from "../dto/cart.request.dto";
+import { type CartRequestInput, CartRequestSchema } from "../dto/cart.request.dto";
 
 const router = express.Router();
 const repo = repository.CartRepository;
@@ -41,7 +41,11 @@ router.post(
             );
             return res.status(200).json(response);
         } catch (error) {
-            return res.status(404).json({ error });
+            console.error("CHI TIẾT LỖI:", (error as Error).message || error);
+            return res.status(500).json({
+                message: "Đã xảy ra lỗi",
+                detail: (error as Error).message
+            });
         }
     }
 );
@@ -54,8 +58,11 @@ router.get("/cart", async (req: Request, res: Response, next: NextFunction) => {
 
 router.patch(
     "/cart/:lineItemId",
-    async (req: Request<{ lineItemId: string }>, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         const lineItemId = req.params.lineItemId;
+        if (!lineItemId) {
+            return res.status(400).json({ error: "Line item ID is required" });
+        }
         const response = await service.EditCart(
             {
                 id: +lineItemId,
@@ -69,8 +76,11 @@ router.patch(
 
 router.delete(
     "/cart/:lineItemId",
-    async (req: Request<{ lineItemId: string }>, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         const lineItemId = req.params.lineItemId;
+        if (!lineItemId) {
+            return res.status(400).json({ error: "Line item ID is required" });
+        }
         console.log(lineItemId);
         const response = await service.DeleteCart(+lineItemId, repo);
         return res.status(200).json(response);
