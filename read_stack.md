@@ -92,6 +92,35 @@ Thực hiện Migration & Table Definition: Định nghĩa cấu trúc bảng (c
 
 Đảm bảo An toàn Kiểu Dữ liệu (Type Safety): Nhờ việc tích hợp chặt chẽ với TypeScript, dữ liệu đầu vào khi thao tác với database (input, cart) sẽ được kiểm tra kiểu dữ liệu tự động, hạn chế tối đa các lỗi Runtime do sai kiểu dữ liệu trả về từ database.
 
+6. Kafka
+Apache Kafka là một nền tảng streaming sự kiện phân tán (distributed event streaming platform) mã nguồn mở, được phát triển bởi Apache Software Foundation. Nó hoạt động như một hệ thống nhắn tin (messaging system) có hiệu suất cao, cho phép các hệ thống, ứng dụng và microservices trao đổi dữ liệu với nhau theo thời gian thực (real-time).
+
+Các khái niệm cốt lõi trong Kafka:
+
+Producer: Bên gửi (sinh ra) dữ liệu/sự kiện vào Kafka.
+
+Consumer: Bên nhận (tiêu thụ) dữ liệu từ Kafka để xử lý.
+
+Topic: Kênh hoặc danh mục lưu trữ các sự kiện/tin nhắn (tương tự như một bảng hoặc thư mục).
+
+Broker: Các máy chủ chạy Kafka cluster, chịu trách nhiệm lưu trữ và phục vụ dữ liệu.
+
+Partition: Các phân đoạn nhỏ của một Topic giúp phân phối tải và tăng khả năng xử lý song song.
+
+Tác dụng của Kafka trong dự án (Microservices + Elasticsearch)
+Nhìn vào tên kho lưu trữ của bạn (kafka_elastic_search_ms - Microservices sử dụng Kafka và Elasticsearch), Kafka đóng vai trò là cầu nối giao tiếp trung tâm (Event Backbone) giữa các microservices hoặc giữa nguồn dữ liệu và hệ thống tìm kiếm (Elasticsearch). Cụ thể:
+
+Truyền tải dữ liệu bất đồng bộ (Asynchronous Messaging):
+Thay vì gọi trực tiếp API từ các dịch vụ sinh dữ liệu sang Elasticsearch (dễ gây nghẽn cổ chai nếu lượng dữ liệu lớn hoặc Elasticsearch gặp sự cố tạm thời), dữ liệu sẽ được đẩy vào Kafka. Kafka sẽ giữ lại (buffer) dữ liệu an toàn.
+
+Giảm ghép nối giữa các hệ thống (Decoupling):
+Dịch vụ gửi dữ liệu không cần biết dịch vụ tìm kiếm (Elasticsearch) đang hoạt động ra sao. Chúng chỉ việc "bắn" sự kiện lên Kafka Topic, việc đọc và đồng bộ dữ liệu vào Elasticsearch sẽ do một Consumer độc lập đảm nhiệm.
+
+Xử lý dữ liệu thời gian thực (Real-time Data Pipeline):
+Khi có thông tin mới được tạo ra hoặc cập nhật ở hệ thống nguồn, Kafka chuyển tiếp lập tức sang các service xử lý để index dữ liệu vào Elasticsearch, giúp người dùng có thể tìm kiếm thông tin gần như ngay lập tức.
+
+Khả năng chịu lỗi và mở rộng cao (Scalability & Fault Tolerance):
+Nếu Elasticsearch bị quá tải, Kafka có thể lưu trữ tạm các message trong hàng đợi (queue) cho đến khi Elasticsearch hồi phục, ngăn ngừa việc mất mát dữ liệu.
 
 # --- more, logic
 1. 
@@ -182,3 +211,9 @@ catalog service - product manager/product listing/stock management
 product listing - product details - create cart - order service
 stock management -  product availability & stock - cart management - order service
 stock management - (consume/publish) - kafka - (consume/publish) - cart management/create order - order service
+
+---Consumer - subscriber - sonsumer group - pull - topic - kafka cluster - broker - zookeeper
+
+order_evetns - topic - record
+
+producer - pushing record to topic - topic - pull message - consumer

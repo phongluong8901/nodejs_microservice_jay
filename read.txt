@@ -78,6 +78,7 @@ yarn add pino-pretty
 
 yarn add axios
 
+yarn add kafkajs
 
 --- run
 - run catalog service
@@ -113,7 +114,10 @@ yarn db:studio: Mở giao diện web quản lý database trên cổng 6000.
 yarn db:generate -> yarn db:migrate -> yarn db:push
 
 --- docker
-cd proj_1/db
+- cd proj_1/db
+docker-compose up -d
+
+- cd proj_1/broker
 docker-compose up -d
 
 docker-compose down

@@ -1,31 +1,57 @@
-import express, { type Request, type Response, type NextFunction } from 'express'
-import * as service from '../service/order.service'
+import express, { type NextFunction, type Request, type Response } from "express";
+import { MessageBroker } from "../utils";
+import { OrderEvent } from "../types";
 
-export const router = express.Router()
+const router = express.Router();
 
-router.post("/order", async (req: Request, res: Response, next: NextFunction) => {
-    const response = await service.CreateOrder(req.body)
-    return res.status(200).json(response)
-})
+router.post(
+    "/order",
+    async (req: Request, res: Response, next: NextFunction) => {
+        // order create logic
 
-router.get("/order/:id", async (req: Request, res: Response, next: NextFunction) => {
-    const response = await service.GetOrder(req.body)
-    return res.status(200).json(response)
-})
+        // 3rd step: publish the message
+        await MessageBroker.publish({
+            topic: "OrderEvents",
+            headers: { token: req.headers.authorization },
+            event: OrderEvent.CREATE_ORDER,
+            message: {
+                orderId: 1,
+                items: [
+                    {
+                        productId: 1,
+                        quantity: 1,
+                    },
+                    {
+                        productId: 2,
+                        quantity: 2,
+                    },
+                ],
+            },
+        });
 
-router.put("/order/:id", async (req: Request, res: Response, next: NextFunction) => {
-    const response = await service.UpdateOrder(req.body)
-    return res.status(200).json(response)
-})
+        return res.status(200).json({ message: "create order" });
+    }
+);
 
-router.delete("/order/:id", async (req: Request, res: Response, next: NextFunction) => {
-    const response = await service.DeleteOrder(req.body)
-    return res.status(200).json(response)
-})
+router.get(
+    "/order",
+    async (req: Request, res: Response, next: NextFunction) => {
+        return res.status(200).json({ message: "create order" });
+    }
+);
 
-router.get("/order", async (req: Request, res: Response, next: NextFunction) => {
-    const response = await service.GetAllOrder()
-    return res.status(200).json(response)
-})
+router.get(
+    "/order/:id",
+    async (req: Request, res: Response, next: NextFunction) => {
+        return res.status(200).json({ message: "create order" });
+    }
+);
+
+router.delete(
+    "/order/:id",
+    async (req: Request, res: Response, next: NextFunction) => {
+        return res.status(200).json({ message: "create order" });
+    }
+);
 
 export default router;
