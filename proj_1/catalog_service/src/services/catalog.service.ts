@@ -13,7 +13,7 @@ export class CatalogService {
     // Phương thức nghiệp vụ xử lý logic tạo mới sản phẩm từ dữ liệu đầu vào (input)
     async createProduct(input: any) {
         const data = await this._repository.create(input);
-        if(!data.id) {
+        if (!data.id) {
             throw new Error("unable to create product");
         }
         return data;
@@ -43,5 +43,14 @@ export class CatalogService {
         const response = await this._repository.delete(id);
         // delete record from Elastic search
         return response;
+    }
+
+
+    async getProductStock(ids: number[]) {
+        const products = await this._repository.findStock(ids);
+        if (!products) {
+            throw new Error("unable to find product stock details");
+        }
+        return products;
     }
 }

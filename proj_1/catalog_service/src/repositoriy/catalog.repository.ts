@@ -52,4 +52,12 @@ export class CatalogRepository implements ICatalogRepository {
         const products = results as unknown as Product[];
         return (products[0] || null) as unknown as Product;
     }
+
+    async findStock(ids: number[]): Promise<Product[]> {
+        const results = await db.orm.public.Product
+            .where({
+                id: ids as unknown as number // Ép kiểu lừa TypeScript nếu bộ ORM tự hiểu mảng ở tầng dưới
+            });
+        return results as unknown as Product[];
+    }
 }

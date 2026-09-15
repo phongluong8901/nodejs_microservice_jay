@@ -1,56 +1,121 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 import { MessageBroker } from "../utils";
-import { OrderEvent } from "../types";
 
+import { OrderEvent, OrderStatus } from "../types";
+import { RequestAuthorizer } from "./middleware";
+import * as service from "../service/order.service";
+import { OrderRepository } from "../repository/order.repository";
+import { CartRepository } from "../repository/cart.repository";
+const repo = OrderRepository;
+const cartRepo = CartRepository;
 const router = express.Router();
 
 router.post(
-    "/order",
+    "/orders",
+    RequestAuthorizer,
     async (req: Request, res: Response, next: NextFunction) => {
-        // order create logic
-
-        // 3rd step: publish the message
-        await MessageBroker.publish({
-            topic: "OrderEvents",
-            headers: { token: req.headers.authorization },
-            event: OrderEvent.CREATE_ORDER,
-            message: {
-                orderId: 1,
-                items: [
-                    {
-                        productId: 1,
-                        quantity: 1,
-                    },
-                    {
-                        productId: 2,
-                        quantity: 2,
-                    },
-                ],
-            },
-        });
-
-        return res.status(200).json({ message: "create order" });
+        const user = req.user;
+        if (!user) {
+            next(new Error("User not found"));
+            return;
+        }
+        const response = await service.CreateOrder(user.id, repo, cartRepo);
+        return res.status(200).json(response);
     }
 );
 
 router.get(
-    "/order",
+    "/orders",
     async (req: Request, res: Response, next: NextFunction) => {
-        return res.status(200).json({ message: "create order" });
+        const user = req.user;
+        if (!user) {
+            next(new Error("User not found"));
+            return;
+        }
+        const response = await service.GetOrders(user.id, repo);
+        return res.status(200).json(response);
     }
 );
 
 router.get(
-    "/order/:id",
+    "/orders/:id",
     async (req: Request, res: Response, next: NextFunction) => {
-        return res.status(200).json({ message: "create order" });
+        const user = req.user;
+        if (!user) {
+            next(new Error("User not found"));
+            return;
+        }
+        const response = await service.GetOrder(user.id, repo);
+        return res.status(200).json(response);
+    }
+);
+
+router.get(
+    "/orders/:id",
+    RequestAuthorizer, // Nhớ thêm middleware xác thực nếu cần
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const user = req.user;
+            if (!user) {
+                next(new Error("User not found"));
+                return;
+            }
+
+            // Lấy và kiểm tra id an toàn
+            const idParam = req.params.id;
+            if (!idParam || typeof idParam !== "string") {
+                return res.status(400).json({ error: "Invalid order ID" });
+            }
+
+            const response = await service.GetOrder(parseInt(idParam), repo);
+            return res.status(200).json(response);
+        } catch (error) {
+            next(error);
+        }
+    }
+);
+
+router.patch(
+    "/orders/:id",
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const idParam = req.params.id;
+            if (!idParam || typeof idParam !== "string") {
+                return res.status(400).json({ error: "Invalid order ID" });
+            }
+
+            const orderId = parseInt(idParam);
+            const status = req.body.status as OrderStatus;
+            const response = await service.UpdateOrder(orderId, status, repo);
+            return res.status(200).json(response);
+        } catch (error) {
+            next(error);
+        }
     }
 );
 
 router.delete(
-    "/order/:id",
+    "/orders/:id",
+    RequestAuthorizer,
     async (req: Request, res: Response, next: NextFunction) => {
-        return res.status(200).json({ message: "create order" });
+        try {
+            const user = req.user;
+            if (!user) {
+                next(new Error("User not found"));
+                return;
+            }
+
+            const idParam = req.params.id;
+            if (!idParam || typeof idParam !== "string") {
+                return res.status(400).json({ error: "Invalid order ID" });
+            }
+
+            const orderId = parseInt(idParam);
+            const response = await service.DeleteOrder(orderId, repo);
+            return res.status(200).json(response);
+        } catch (error) {
+            next(error);
+        }
     }
 );
 

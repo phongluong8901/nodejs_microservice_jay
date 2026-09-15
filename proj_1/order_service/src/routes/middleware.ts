@@ -10,6 +10,7 @@ export const RequestAuthorizer = async (
     next: NextFunction
 ) => {
     try {
+        console.log("RequestAuthorizer called", req.headers.authorization);
         // Kiểm tra xem trong header của request gửi lên có đính kèm "authorization" hay không
         if (!req.headers.authorization) {
             // Nếu không có token, chặn request ngay lập tức và trả về mã lỗi 403 Forbidden
@@ -28,6 +29,7 @@ export const RequestAuthorizer = async (
         // Cho phép request đi tiếp tục đến Controller/Route xử lý tiếp theo trong chuỗi Express middleware
         next();
     } catch (error) {
+        console.log("error", error);
         // Nếu quá trình xác thực thất bại (token sai, hết hạn, hoặc Auth Service lỗi), trả về mã 403 kèm lỗi
         return res.status(403).json({ error });
     }

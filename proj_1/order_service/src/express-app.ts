@@ -15,22 +15,22 @@ app.use(cors());
 app.use(express.json());
 app.use(httpLogger);
 
-//1st step: connect to the producer and consumer
-const producer = await MessageBroker.connectProducer<Producer>();
-producer.on("producer.connect", () => {
-    console.log("producer connected");
-});
+// //1st step: connect to the producer and consumer
+// const producer = await MessageBroker.connectProducer<Producer>();
+// producer.on("producer.connect", () => {
+//     console.log("producer connected");
+// });
 
-const consumer = await MessageBroker.connectConsumer<Consumer>();
-producer.on("producer.disconnect", () => {
-    console.log("producer disconnected");
-});
+// const consumer = await MessageBroker.connectConsumer<Consumer>();
+// producer.on("producer.disconnect", () => {
+//     console.log("producer disconnected");
+// });
 
-//2nd step: subscribe to the topic or publish messages to the topic
-await MessageBroker.subscribe((message) => {
-    console.log("Consumer recevied the message");
-    console.log("Message received", message)
-}, "OrderEvents");
+// //2nd step: subscribe to the topic or publish messages to the topic
+// await MessageBroker.subscribe((message) => {
+//     console.log("Consumer recevied the message");
+//     console.log("Message received", message)
+// }, "OrderEvents");
 
 
 app.use(orderRoutes);
