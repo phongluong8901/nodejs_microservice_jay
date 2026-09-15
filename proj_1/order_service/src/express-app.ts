@@ -3,8 +3,8 @@ import orderRoutes from './routes/order.routes.js'
 import cartRoutes from './routes/cart.routes.js'
 import cors from 'cors'
 import { httpLogger, HandleErrorWithLogger } from "./utils/index.js"
-import { MessageBroker } from "./utils/broker/message-broker.js"
-import type { Consumer, Producer } from "kafkajs";
+
+import { InitializeBroker } from "./service/broker.service";
 
 const PORT = process.env.APP_PORT || 9000;
 
@@ -15,23 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(httpLogger);
 
-// //1st step: connect to the producer and consumer
-// const producer = await MessageBroker.connectProducer<Producer>();
-// producer.on("producer.connect", () => {
-//     console.log("producer connected");
-// });
-
-// const consumer = await MessageBroker.connectConsumer<Consumer>();
-// producer.on("producer.disconnect", () => {
-//     console.log("producer disconnected");
-// });
-
-// //2nd step: subscribe to the topic or publish messages to the topic
-// await MessageBroker.subscribe((message) => {
-//     console.log("Consumer recevied the message");
-//     console.log("Message received", message)
-// }, "OrderEvents");
-
+await InitializeBroker();
 
 app.use(orderRoutes);
 app.use(cartRoutes);

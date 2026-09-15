@@ -2,7 +2,8 @@
 import type { OrderLineItemType, OrderWithLineItems } from "../dto/orderRequest.dto";
 import { type CartRepositoryType } from "../repository/cart.repository";
 import { type OrderRepositoryType } from "../repository/order.repository";
-import { OrderStatus } from "../types";
+
+import type { MessageType, OrderStatus } from "../types";
 
 
 export const CreateOrder = async (
@@ -80,7 +81,8 @@ export const DeleteOrder = async (
     await repo.deleteOrder(orderId);
     return true;
 };
-export const HandleSubscription = async (message: any) => {
+
+export const HandleSubscription = async (message: MessageType) => {
     // if (message.event === OrderEvent.ORDER_UPDATED) {
     // call create order
 };
