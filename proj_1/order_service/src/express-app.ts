@@ -2,6 +2,7 @@ import express, { type NextFunction, type Request, type Response } from "express
 import orderRoutes from './routes/order.routes.js'
 import cartRoutes from './routes/cart.routes.js'
 import cors from 'cors'
+import { httpLogger, HandleErrorWithLogger } from "./utils/index.js"
 
 const PORT = process.env.APP_PORT || 9000;
 
@@ -18,7 +19,7 @@ app.use("/", (req: Request, res: Response, next: NextFunction) => {
     res.status(200).json({ message: "healthy" });
 });
 
-
+app.use(HandleErrorWithLogger);
 
 
 

@@ -1,6 +1,6 @@
 import type { ICatalogRepository } from "../interface/catalogRepository.interface.js";
 import type { Product } from "../models/product.models.js";
-import { ProductFactory } from "../utils/fixfuture/index.js";
+import { ProductFactory } from "../utils/fixtures/index.js";
 import { db } from "../prisma/db.js";
 
 // Khai báo lớp CatalogRepository thực thi (implement) các quy tắc từ interface ICatalogRepository

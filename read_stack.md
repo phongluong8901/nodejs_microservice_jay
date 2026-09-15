@@ -15,6 +15,19 @@ supertest (devDependencies): Thư viện chuyên dụng để kiểm thử các 
 
 osie (devDependencies): Thư viện hỗ trợ mô hình Factory Pattern cho JavaScript và TypeScript, chuyên dùng trong việc tạo dữ liệu mẫu (mock data) cho các bài kiểm thử (testing). Thay vì phải viết thủ công từng đối tượng dữ liệu hoặc lặp lại cấu trúc phức tạp ở mỗi test case, rosie cho phép định nghĩa sẵn các khuôn mẫu (blueprints) cho từng thực thể (như Product, User, Order), sau đó dễ dàng sinh ra dữ liệu ngẫu nhiên hoặc ghi đè các thuộc tính cụ thể một cách cực kỳ nhanh chóng và gọn gàng.
 
+@sinclair/typebox: Thư viện tạo schema và định nghĩa kiểu dữ liệu (type) cho TypeScript với tốc độ cực nhanh, giúp vừa validate dữ liệu vừa sinh ra type TypeScript tại thời điểm chạy (runtime).
+
+ajv (Another JSON Schema Validator): Thư viện validate JSON Schema có hiệu năng cao và phổ biến hàng đầu trong hệ sinh thái Node.js.
+
+pino: Thư viện ghi log (logging) siêu nhanh, hiệu năng cao và cực kỳ nhẹ cho Node.js, xuất dữ liệu log dưới định dạng JSON tối ưu cho việc phân tích.
+
+pino-http: Middleware HTTP tự động gắn kèm với pino để ghi log toàn bộ các request và response HTTP đến server (như thời gian xử lý, mã status code, đường dẫn URL, phương thức request) một cách tự động và chuyên nghiệp trong các ứng dụng Microservices.
+
+class-validator: Thư viện dùng để kiểm tra tính hợp lệ (validate) của dữ liệu dựa trên các Decorators (như @IsString(), @IsInt(), @IsEmail(), @Min()) gắn trực tiếp lên các thuộc tính của Class.
+
+axios: Thư viện HTTP client dựa trên Promise dùng để thực hiện các yêu cầu (requests) HTTP/HTTPS từ Node.js hoặc trình duyệt (như gọi API đến các dịch vụ khác, gửi/nhận dữ liệu JSON, xử lý interceptor, timeout).
+
+
 # --- stack
 1. Jest
 Đúng vậy, Jest là một thư viện kiểm thử (testing framework) mã nguồn mở rất phổ biến và mạnh mẽ dành cho hệ sinh thái JavaScript và Node.js, được phát triển và duy trì bởi Meta (Facebook).
@@ -163,3 +176,9 @@ automic quey genearttion and object relation mapping
 ---
 User - product catalog - product/smat phone - (add to cart) - cart - cart items
 cart - collect payment - order - order items
+
+--- order and catalog  use cases
+catalog service - product manager/product listing/stock management
+product listing - product details - create cart - order service
+stock management -  product availability & stock - cart management - order service
+stock management - (consume/publish) - kafka - (consume/publish) - cart management/create order - order service

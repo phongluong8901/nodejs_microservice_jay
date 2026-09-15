@@ -1,7 +1,7 @@
 import request from "supertest";
 import express from "express";
 import catalogRoutes, { catalogService } from "../catalog.routes.js";
-import { ProductFactory } from "../../utils/fixfuture/index.js";
+import { ProductFactory } from "../../utils/fixtures/index.js";
 import { faker } from '@faker-js/faker';
 import { describe, it, expect, jest } from "@jest/globals";
 

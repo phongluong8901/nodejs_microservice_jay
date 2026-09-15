@@ -50,6 +50,9 @@ yarn add class-transformer class-validator
 
 npx prisma orm init --yes --target postgres --authoring psl
 
+yarn add pino-http pino --ignore-engines
+yarn add pino-pretty --ignore-engines
+
 -- cd order_service
 yarn add cors; yarn add @types/cors -D
 yarn add jest ts-jest @types/jest -D
@@ -66,6 +69,15 @@ yarn create jest
 
 yarn add drizzle-orm pg
 yarn add -D drizzle-kit @types/pg
+
+yarn add @sinclair/typebox ajv
+yarn add pino-http pino
+
+yarn add class-validator
+yarn add pino-pretty
+
+yarn add axios
+
 
 --- run
 - run catalog service
@@ -88,6 +100,9 @@ cd proj_1/catalog_service
 npx prisma contract emit
 - day vao db
 npx prisma db update 
+-tao table trong DB
+yarn prisma db init
+
 
 --- migrate Drizzle ORM
 yarn db:generate: Tạo file migration SQL từ code schema.
