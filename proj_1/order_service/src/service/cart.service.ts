@@ -1,9 +1,10 @@
-import type { CartRequestInput } from "../dto/cart.request.dto";
-import type { CartRepositorytype } from "../types/repository.type";
+import type { CartLineItem } from "../db/schema";
+import type { CartEditRequestInput, CartRequestInput } from "../dto/cart.request.dto";
+import type { CartRepositoryType } from "../repository/cart.repository";
 import { logger, NotFoundError } from "../utils";
 import { GetProductDetails } from "../utils/broker";
 
-export const CreateCart = async (input: CartRequestInput, repo: CartRepositorytype) => {
+export const CreateCart = async (input: CartRequestInput, repo: CartRepositoryType) => {
     //make a call to our catalog microservices
     //synchronize call
     const product = await GetProductDetails(input.productId);
@@ -13,26 +14,33 @@ export const CreateCart = async (input: CartRequestInput, repo: CartRepositoryty
         throw new NotFoundError("product is out of stock");
     }
 
-    // const data = await repo.Create(input);
-    return product;
+    return await repo.createCart(input.customerId, {
+        productId: product.id,
+        price: product.price.toString(),
+        qty: input.qty,
+        itemName: product.name,
+        variant: product.variant,
+    } as CartLineItem);
 };
 
-export const DeleteCart = async (input: any, repo: CartRepositorytype) => {
-    const data = await repo.Delete(input);
-    return { data: data };
+export const GetCart = async (id: number, repo: CartRepositoryType) => {
+    const data = await repo.findCart(id);
+    if (!data) {
+        throw new NotFoundError("cart not found");
+    }
+
+    return data;
 };
 
-export const UpdateCart = async (input: any, repo: CartRepositorytype) => {
-    const data = await repo.Update(input);
-    return { data: data };
+export const EditCart = async (
+    input: CartEditRequestInput,
+    repo: CartRepositoryType
+) => {
+    const data = await repo.updateCart(input.id, input.qty);
+    return data;
 };
 
-export const GetCart = async (input: any, repo: CartRepositorytype) => {
-    const data = await repo.Find(input);
-    return { data: data };
-};
-
-export const GetAllCart = async (repo: CartRepositorytype) => {
-    const data = await repo.FindAll();
-    return { data: data };
+export const DeleteCart = async (id: number, repo: CartRepositoryType) => {
+    const data = await repo.deleteCart(id);
+    return data;
 };

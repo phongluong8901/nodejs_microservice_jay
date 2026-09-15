@@ -6,7 +6,7 @@ export const carts = pgTable("carts", {
     id: serial("id").primaryKey(), //Tạo cột khóa chính id, tự động tăng (1, 2, 3...).
     customerId: integer("customer_id").notNull().unique(), // Lưu ID khách hàng, bắt buộc có (notNull) và mỗi khách hàng chỉ có duy nhất 1 giỏ hàng (unique).
     createdAt: timestamp("created_at").notNull().defaultNow(), // Lưu thời điểm tạo, tự động lấy thời gian hiện tại.
-    updateAt: timestamp("update_at").notNull().defaultNow(), // Lưu thời điểm cập nhật cuối cùng.
+    updatedAt: timestamp("update_at").notNull().defaultNow(), // Lưu thời điểm cập nhật cuối cùng.
 });
 
 //Định nghĩa kiểu TypeScript cho bảng carts

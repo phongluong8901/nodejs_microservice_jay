@@ -4,7 +4,7 @@ import { logger } from "../logger";
 import { type Product } from "../../dto/product.dto";
 
 const CATALOG_BASE_URL =
-    process.env.CATALOG_BASE_URL || "http://localhost:9001"; // env variable
+    process.env.CATALOG_BASE_URL || "http://localhost:8000"; // env variable
 
 export const GetProductDetails = async (productId: number) => {
     try {
